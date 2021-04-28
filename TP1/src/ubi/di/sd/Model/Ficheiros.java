@@ -1,6 +1,7 @@
-package ubi.di.sd;
+package ubi.di.sd.Model;
 
 import Ler.Ler;
+
 
 import java.io.*;
 import java.util.Vector;
@@ -29,9 +30,7 @@ public  class Ficheiros {
 
             Peixe novoPeixe = new Peixe(nome, stock, preco);
             vectorPeixes.add(novoPeixe);
-
         }
-
     }
 
 
@@ -57,12 +56,12 @@ public  class Ficheiros {
     public static Vector<Peixe> lerInformacao() {
 
         Vector<Peixe> vPeixe;
-
         try {
             System.out.println("Ler Informação Relativa à Peixaria");
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream("Produtos.dat"));
 
             vPeixe = (Vector<Peixe>) ois.readObject();
+
             System.out.println("Nome1: " + vPeixe.size());
 
             ois.close();
@@ -82,7 +81,8 @@ public  class Ficheiros {
             System.out.println("Li do ficheiro os seguintes dados  ");
             System.out.println("Nome: " + vPeixe.get(i).getNome());
             System.out.println("Preço: " + vPeixe.get(i).getPreco());
-            System.out.println("Stock: " + vPeixe.get(i).getStock());
+            System.out.println("Stock: " + vPeixe.get(i).getPreco());
+
         }
 
     }

@@ -1,6 +1,8 @@
 package ubi.di.sd;
 
 import Ler.Ler;
+import ubi.di.sd.Model.Peixe;
+import ubi.di.sd.Model.Produto;
 
 import java.io.*;
 import java.sql.SQLOutput;
@@ -12,7 +14,8 @@ public class Main {
 
     public static void main(String[] args) {
 
-     /*   Vector<Peixe> vector = new Vector<>();
+        /*
+       //Vector<Peixe> vector = new Vector<>();
         for (int i = 0; i < 2; i++) {
             System.out.println("Introduza o Nome: \n");
             String nome = Ler.umaString();
@@ -29,7 +32,7 @@ public class Main {
         }
         Ficheiros.GuardaPeixaria(vector);
         Ficheiros.lerInformacao();
-    */
+        */
     }
 
 }

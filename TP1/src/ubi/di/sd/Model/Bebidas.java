@@ -1,4 +1,5 @@
-package ubi.di.sd;
+package ubi.di.sd.Model;
+
 
 import java.io.Serializable;
 
