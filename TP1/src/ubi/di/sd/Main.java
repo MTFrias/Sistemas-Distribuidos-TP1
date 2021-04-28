@@ -12,7 +12,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Vector<Peixe> vector = new Vector<>();
+     /*   Vector<Peixe> vector = new Vector<>();
         for (int i = 0; i < 2; i++) {
             System.out.println("Introduza o Nome: \n");
             String nome = Ler.umaString();
@@ -29,6 +29,7 @@ public class Main {
         }
         Ficheiros.GuardaPeixaria(vector);
         Ficheiros.lerInformacao();
+    */
     }
 
 }
