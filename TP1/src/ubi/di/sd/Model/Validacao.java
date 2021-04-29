@@ -32,6 +32,7 @@ public class Validacao {
         }
         System.out.println("Fornecedor já foi adicionado!");
     }
+
     public static void adicionarProduto(ArrayList<Produto> produtos, Produto produto){
         if(!produtos.contains(produto))
         {

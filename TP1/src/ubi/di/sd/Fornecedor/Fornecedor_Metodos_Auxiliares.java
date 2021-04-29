@@ -20,7 +20,7 @@ public class Fornecedor_Metodos_Auxiliares {
     }
 
     public static double escreverPrecoCompra() {
-        System.out.print("Preco do produto par se comprar:");
+        System.out.print("Preco do produto para se comprar:");
         return Double.parseDouble(Objects.requireNonNull(Validacao.readString()));
     }
 
@@ -58,7 +58,7 @@ public class Fornecedor_Metodos_Auxiliares {
             System.out.println("====== (4) Adicionar Bebidas ==========");
             System.out.println("====== (5) Adicionar Frutos ===========");
             System.out.println("====== (6) Adicionar Mercearia ========");
-            System.out.println("====== (sair) - Finalizar =============");
+            System.out.println("====== (Sair) - Finalizar =============");
             System.out.println("=======================================");
             System.out.print("Opção:");
             s = Validacao.readString();

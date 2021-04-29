@@ -27,7 +27,10 @@ public class Fornecedor extends java.rmi.server.UnicastRemoteObject implements I
     public static void main(String[] args) {
         String s;
         //Vinícius: grant.policy
-        System.setProperty("java.security.policy", "/Users/vinciusrodriguessilvacosta/IdeaProjects/Sistemas-Distribuidos-TP1/TP1/grant.policy");
+        //System.setProperty("java.security.policy", "/Users/vinciusrodriguessilvacosta/IdeaProjects/Sistemas-Distribuidos-TP1/TP1/grant.policy");
+        //Miguel
+        System.setProperty("java.security.policy", "/home/frias/GitHub/Sistemas-Distribuidos-TP1/TP1/grant.policy");
+
         System.setSecurityManager(new SecurityManager());
         try {
             LocateRegistry.createRegistry(1199);
@@ -41,8 +44,8 @@ public class Fornecedor extends java.rmi.server.UnicastRemoteObject implements I
                 System.out.println("====== (1) Registrar Produto ==================");
                 System.out.println("====== (2) Adicionar Produtos (já existentes) =");
                 System.out.println("====== (3) Remover Produtos ===================");
-                System.out.println("====== (4) Consultar Historico de Vendas ======");
-                System.out.println("====== (5) Consultar Historico Vendidos Pelo servidor ======");
+                System.out.println("====== (4) Consultar Historico de Fornecimentos ======");
+                System.out.println("====== (5) Consultar Historico de Todas as Vendas ======");
                 System.out.println("====== (sair)- Finalizar ======================");
                 System.out.println("===============================================");
                 System.out.print("Opção:");
