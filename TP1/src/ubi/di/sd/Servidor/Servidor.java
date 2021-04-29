@@ -6,6 +6,7 @@ import ubi.di.sd.Model.*;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Servidor extends java.rmi.server.UnicastRemoteObject implements Interface_Servidor_Vendedor, Interface_Servidor_Fornecedor {
@@ -14,22 +15,30 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
     private static ArrayList<Bebidas> bebidas;
     private static ArrayList<Carne> carnes;
     private static ArrayList<Peixe> peixes;
+    private static ArrayList<Mercearia> mercearias;
+    private static ArrayList<Frutos> frutos;
+    private static ArrayList<Limpeza> limpezas;
 
 
     public Servidor() throws java.rmi.RemoteException {
         super();
 
-        fornecedores = new ArrayList<Interface_Fornecedor_Servidor>();
-        bebidas = new ArrayList<Bebidas>();
-        carnes = new ArrayList<Carne>();
-        peixes = new ArrayList<Peixe>();
+        fornecedores = new ArrayList<>();
+        bebidas = new ArrayList<>();
+        carnes = new ArrayList<>();
+        peixes = new ArrayList<>();
+        mercearias = new ArrayList<>();
+        limpezas = new ArrayList<>();
+        frutos = new ArrayList<>();
     }
+
     /* ================================================================ */
     /*Metodos criados para o cliente ================================== */
     @Override
     public void printOnClient(String s) throws RemoteException {
 
     }
+
     /* ================================================================ */
     /*Metodos criados para o fornecedor =============================== */
     @Override
@@ -40,6 +49,41 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
     public void subscribeFornecedor(String name, Interface_Fornecedor_Servidor fornecedor) throws java.rmi.RemoteException {
         System.out.println("Fornecedor Adicionado: " + name);
         fornecedores.add(fornecedor);
+    }
+
+    public void adicionarProduto(String _nome, int _stock, double _precoCompra, double _precoVenda, LocalDateTime _validade, int _quantidadeMinima, Interface_Fornecedor_Servidor _fornecedor, String pos) {
+        switch (pos) {
+            case "1":
+                Peixe p = new Peixe(_nome, _stock, _precoCompra, _precoVenda, _validade, _quantidadeMinima, _fornecedor);
+                peixes.add(p);
+                break;
+            case "2":
+                Carne c = new Carne(_nome, _stock, _precoCompra, _precoVenda, _validade, _quantidadeMinima, _fornecedor);
+                carnes.add(c);
+                break;
+            case "3":
+                Limpeza l = new Limpeza(_nome, _stock, _precoCompra, _precoVenda, _validade, _quantidadeMinima, _fornecedor);
+                limpezas.add(l);
+                break;
+            case "4":
+                Bebidas b = new Bebidas(_nome, _stock, _precoCompra, _precoVenda, _validade, _quantidadeMinima, _fornecedor);
+                bebidas.add(b);
+                break;
+            case "5":
+                Frutos f = new Frutos(_nome, _stock, _precoCompra, _precoVenda, _validade, _quantidadeMinima, _fornecedor);
+                frutos.add(f);
+                break;
+            case "6":
+                Mercearia m = new Mercearia(_nome, _stock, _precoCompra, _precoVenda, _validade, _quantidadeMinima, _fornecedor);
+                mercearias.add(m);
+                break;
+            case "Sair":
+                return;
+        }
+    }
+
+    public String consultarVendas(Interface_Fornecedor_Servidor _fornecedor) throws RemoteException {
+        return peixes + " " + carnes + " " + limpezas + " " + mercearias + " " + frutos + " " + bebidas;
     }
     /* ================================================================ */
 

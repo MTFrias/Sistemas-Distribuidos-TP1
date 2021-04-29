@@ -23,7 +23,7 @@ public class Validacao {
         }
     }
 
-    public static void adicionar_fornecedor(ArrayList<Interface_Fornecedor_Servidor> fornecedores, Interface_Fornecedor_Servidor fornecedor){
+    public static void adicionarFornecedor(ArrayList<Interface_Fornecedor_Servidor> fornecedores, Interface_Fornecedor_Servidor fornecedor){
         if(!fornecedores.contains(fornecedor))
         {
             System.out.println("Fornecedor Adicionado com sucesso!");
@@ -31,5 +31,14 @@ public class Validacao {
             return;
         }
         System.out.println("Fornecedor já foi adicionado!");
+    }
+    public static void adicionarProduto(ArrayList<Produto> produtos, Produto produto){
+        if(!produtos.contains(produto))
+        {
+            System.out.println("Produto Adicionado com sucesso!");
+            produtos.add(produto);
+            return;
+        }
+        System.out.println("Produto já foi adicionado!");
     }
 }

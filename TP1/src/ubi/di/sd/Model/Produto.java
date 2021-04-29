@@ -11,7 +11,8 @@ import java.util.Date;
 
 public class Produto implements Serializable {
 
-    private int stock ;
+    private String nome;
+    private int stock;
     private double precoCompra;
     private double precoVenda;
     private LocalDateTime validade;
@@ -20,15 +21,21 @@ public class Produto implements Serializable {
     private static int numProduct = 0;
     private ArrayList<Interface_Fornecedor_Servidor> fornecedores;
 
+    public Produto(){
 
-    public Produto(int _stock, double _precoCompra, double _precoVenda, LocalDateTime _validade, int _quantidadeMinima) {
+    }
+
+    public Produto(String _nome,int _stock, double _precoCompra, double _precoVenda, LocalDateTime _validade, int _quantidadeMinima,Interface_Fornecedor_Servidor _fornecedor) {
             this.stock = _stock;
+            this.nome = _nome;
             this.precoVenda = _precoVenda;
             this.precoCompra = _precoCompra;
             this.validade = _validade;
             this.quantidadeMinima = _quantidadeMinima;
             this.ID = numProduct;
             numProduct++;
+            fornecedores = new ArrayList<Interface_Fornecedor_Servidor>();
+            fornecedores.add(_fornecedor);
     }
 
 }
