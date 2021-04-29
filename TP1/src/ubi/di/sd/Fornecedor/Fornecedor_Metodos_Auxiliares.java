@@ -15,9 +15,16 @@ public class Fornecedor_Metodos_Auxiliares {
     }
 
     public static int escreverStock() {
+        int num = 0;
         System.out.print("Número de Stock:");
-
-        return Integer.parseInt(Objects.requireNonNull(Validacao.readString()));
+        do {
+            try {
+                num = Integer.parseInt(Validacao.readString());
+            }catch(Exception e){
+                num = 0;
+            }
+        } while (num <= 0);
+        return num;
     }
 
     public static double escreverPrecoCompra() {
