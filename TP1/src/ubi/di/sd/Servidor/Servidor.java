@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 public class Servidor extends java.rmi.server.UnicastRemoteObject implements Interface_Servidor_Vendedor, Interface_Servidor_Fornecedor {
 
+
     private static ArrayList<Interface_Fornecedor_Servidor> fornecedores;
     private static ArrayList<Bebidas> bebidas;
     private static ArrayList<Carne> carnes;
@@ -51,30 +52,30 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
         fornecedores.add(fornecedor);
     }
 
-    public void adicionarProduto(String _nome, int _stock, double _precoCompra, double _precoVenda, LocalDateTime _validade, int _quantidadeMinima, Interface_Fornecedor_Servidor _fornecedor, String pos) {
+    public void adicionarProduto(String _nome, int _stock, double _precoCompra, double _precoVenda, LocalDateTime _validade, int _quantidadeMinima, Interface_Fornecedor_Servidor _fornecedor, String pos) throws RemoteException {
         switch (pos) {
             case "1":
-                Peixe p = new Peixe(_nome, _stock, _precoCompra, _precoVenda, _validade, _quantidadeMinima, _fornecedor);
+                Peixe p = new Peixe(_nome, _stock, _precoCompra, _precoVenda, _validade, _quantidadeMinima, _fornecedor.getNomeFornecedor());
                 peixes.add(p);
                 break;
             case "2":
-                Carne c = new Carne(_nome, _stock, _precoCompra, _precoVenda, _validade, _quantidadeMinima, _fornecedor);
+                Carne c = new Carne(_nome, _stock, _precoCompra, _precoVenda, _validade, _quantidadeMinima, _fornecedor.getNomeFornecedor());
                 carnes.add(c);
                 break;
             case "3":
-                Limpeza l = new Limpeza(_nome, _stock, _precoCompra, _precoVenda, _validade, _quantidadeMinima, _fornecedor);
+                Limpeza l = new Limpeza(_nome, _stock, _precoCompra, _precoVenda, _validade, _quantidadeMinima, _fornecedor.getNomeFornecedor());
                 limpezas.add(l);
                 break;
             case "4":
-                Bebidas b = new Bebidas(_nome, _stock, _precoCompra, _precoVenda, _validade, _quantidadeMinima, _fornecedor);
+                Bebidas b = new Bebidas(_nome, _stock, _precoCompra, _precoVenda, _validade, _quantidadeMinima, _fornecedor.getNomeFornecedor());
                 bebidas.add(b);
                 break;
             case "5":
-                Frutos f = new Frutos(_nome, _stock, _precoCompra, _precoVenda, _validade, _quantidadeMinima, _fornecedor);
+                Frutos f = new Frutos(_nome, _stock, _precoCompra, _precoVenda, _validade, _quantidadeMinima, _fornecedor.getNomeFornecedor());
                 frutos.add(f);
                 break;
             case "6":
-                Mercearia m = new Mercearia(_nome, _stock, _precoCompra, _precoVenda, _validade, _quantidadeMinima, _fornecedor);
+                Mercearia m = new Mercearia(_nome, _stock, _precoCompra, _precoVenda, _validade, _quantidadeMinima, _fornecedor.getNomeFornecedor());
                 mercearias.add(m);
                 break;
             case "Sair":
@@ -83,7 +84,12 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
     }
 
     public String consultarVendas(Interface_Fornecedor_Servidor _fornecedor) throws RemoteException {
-        return peixes + " " + carnes + " " + limpezas + " " + mercearias + " " + frutos + " " + bebidas;
+        String produto = "";
+        System.out.println();
+        for (Peixe item : peixes) {
+
+        }
+        return produto;
     }
     /* ================================================================ */
 

@@ -8,13 +8,20 @@ import java.rmi.registry.LocateRegistry;
 
 public class Fornecedor extends java.rmi.server.UnicastRemoteObject implements Interface_Fornecedor_Servidor {
 
-    protected Fornecedor() throws java.rmi.RemoteException {
+    public String nomeFornecedor;
+    protected Fornecedor(String _nome) throws java.rmi.RemoteException {
         super();
+        nomeFornecedor = _nome;
     }
 
     @Override
     public void printOnServidor(String s) throws RemoteException {
         System.out.println(s);
+    }
+
+    @Override
+    public String getNomeFornecedor() throws RemoteException {
+        return nomeFornecedor;
     }
 
     public static void main(String[] args) {
@@ -25,8 +32,8 @@ public class Fornecedor extends java.rmi.server.UnicastRemoteObject implements I
         try {
             LocateRegistry.createRegistry(1199);
             Interface_Servidor_Fornecedor servidor = (Interface_Servidor_Fornecedor) Naming.lookup("Servidor");
-            Fornecedor fornecedor = new Fornecedor();
-            servidor.subscribeFornecedor("Maquina 1", fornecedor);
+            Fornecedor fornecedor = new Fornecedor("Fornecedor 1");
+            servidor.subscribeFornecedor(fornecedor.nomeFornecedor, fornecedor);
             while (true) {
                 System.out.println("===============================================");
                 System.out.println("================== Opções =====================");
@@ -35,6 +42,7 @@ public class Fornecedor extends java.rmi.server.UnicastRemoteObject implements I
                 System.out.println("====== (2) Adicionar Produtos (já existentes) =");
                 System.out.println("====== (3) Remover Produtos ===================");
                 System.out.println("====== (4) Consultar Historico de Vendas ======");
+                System.out.println("====== (5) Consultar Historico Vendidos Pelo servidor ======");
                 System.out.println("====== (sair)- Finalizar ======================");
                 System.out.println("===============================================");
                 System.out.print("Opção:");
