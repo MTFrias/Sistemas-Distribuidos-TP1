@@ -1,18 +1,27 @@
 package ubi.di.sd;
 
-import Ler.Ler;
 import ubi.di.sd.Model.Peixe;
-import ubi.di.sd.Model.Produto;
+
 
 import java.io.*;
 import java.sql.SQLOutput;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 import java.util.Vector;
 
 public class Main {
 
     public static void main(String[] args) {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        LocalDateTime now = LocalDateTime.now();
+        System.out.println(dtf.format(now));
+
+       // Peixe peixe = new Peixe("Gagri",10,10,now,5);
+
 
         /*
        //Vector<Peixe> vector = new Vector<>();

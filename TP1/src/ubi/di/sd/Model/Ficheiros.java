@@ -1,6 +1,6 @@
 package ubi.di.sd.Model;
 
-import Ler.Ler;
+//import Ler.Ler;
 
 
 import java.io.*;
@@ -13,7 +13,7 @@ public  class Ficheiros {
 
         //Verificar se esta função está a funcionar
         //Recebe a informação do ficheiro!
-        Vector<Peixe> vectorPeixes = lerInformacao();
+        /*Vector<Peixe> vectorPeixes = lerInformacao();
 
         System.out.println("Quantos produtos novos quer inserir?");
         int quantidade= Ler.umInt();
@@ -84,8 +84,7 @@ public  class Ficheiros {
             System.out.println("Stock: " + vPeixe.get(i).getPreco());
 
         }
-
+*/
     }
-
 
 }

@@ -1,0 +1,58 @@
+package ubi.di.sd.Fornecedor;
+
+import ubi.di.sd.Model.Validacao;
+import ubi.di.sd.Servidor.Interface_Servidor_Fornecedor;
+
+import java.rmi.Naming;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.util.ArrayList;
+
+public class Fornecedor extends java.rmi.server.UnicastRemoteObject implements Interface_Fornecedor_Servidor {
+
+    protected Fornecedor() throws java.rmi.RemoteException {
+        super();
+    }
+
+    @Override
+    public void printOnServidor(String s) throws RemoteException {
+        System.out.println(s);
+    }
+
+    public static void main(String[] args) {
+        String s;
+        //Vinícius: grant.policy
+        System.setProperty("java.security.policy", "/Users/vinciusrodriguessilvacosta/IdeaProjects/Sistemas-Distribuidos-TP1/TP1/grant.policy");
+        System.setSecurityManager(new SecurityManager());
+        try {
+            LocateRegistry.createRegistry(1199);
+            Interface_Servidor_Fornecedor servidor = (Interface_Servidor_Fornecedor) Naming.lookup("Servidor");
+            Fornecedor fornecedor = new Fornecedor();
+            servidor.subscribeFornecedor("Maquina 1", (Interface_Fornecedor_Servidor) fornecedor);
+            while (true) {
+                System.out.println("===============================================");
+                System.out.println("================== Opções =====================");
+                System.out.println("====== (0) Comunicar Servidor =================");
+                System.out.println("====== (1) Registrar Produto ==================");
+                System.out.println("====== (2) Adicionar Produtos (já existentes) =");
+                System.out.println("====== (3) Remover Produtos ===================");
+                System.out.println("====== (4) Consultar Historico de Vendas ======");
+                System.out.println("====== (Sair)- Finalizar ======================");
+                System.out.println("===============================================");
+                System.out.print("Opção:");
+                s = Validacao.readString();
+                switch(s) {
+                    case "0":
+                        s = Validacao.readString();
+                        servidor.printOnFornecedor(s);
+                        break;
+                    case "Sair":
+                        return;
+                }
+            }
+        } catch (Exception r) {
+            System.out.println("Exception in client" + r.getMessage());
+        }
+    }
+
+}
