@@ -1,12 +1,14 @@
 package ubi.di.sd.Model;
 
 
+import ubi.di.sd.Fornecedor.Interface_Fornecedor_Servidor;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Bebidas extends Produto implements Serializable {
-    public Bebidas(int _stock, double _precoCompra, double _precoVenda, LocalDateTime _validade, int _quantidadeMinima) {
-        super(_stock,_precoCompra,_precoVenda,_validade,_quantidadeMinima);
+    public Bebidas(String _nome,int _stock, double _precoCompra, double _precoVenda, LocalDateTime _validade, int _quantidadeMinima, Interface_Fornecedor_Servidor _fornecedor) {
+        super(_nome,_stock,_precoCompra,_precoVenda,_validade,_quantidadeMinima,_fornecedor);
     }
 }

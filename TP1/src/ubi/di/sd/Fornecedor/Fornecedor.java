@@ -2,11 +2,9 @@ package ubi.di.sd.Fornecedor;
 
 import ubi.di.sd.Model.Validacao;
 import ubi.di.sd.Servidor.Interface_Servidor_Fornecedor;
-
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
-import java.util.ArrayList;
 
 public class Fornecedor extends java.rmi.server.UnicastRemoteObject implements Interface_Fornecedor_Servidor {
 
@@ -28,7 +26,7 @@ public class Fornecedor extends java.rmi.server.UnicastRemoteObject implements I
             LocateRegistry.createRegistry(1199);
             Interface_Servidor_Fornecedor servidor = (Interface_Servidor_Fornecedor) Naming.lookup("Servidor");
             Fornecedor fornecedor = new Fornecedor();
-            servidor.subscribeFornecedor("Maquina 1", (Interface_Fornecedor_Servidor) fornecedor);
+            servidor.subscribeFornecedor("Maquina 1", fornecedor);
             while (true) {
                 System.out.println("===============================================");
                 System.out.println("================== Opções =====================");
@@ -37,16 +35,26 @@ public class Fornecedor extends java.rmi.server.UnicastRemoteObject implements I
                 System.out.println("====== (2) Adicionar Produtos (já existentes) =");
                 System.out.println("====== (3) Remover Produtos ===================");
                 System.out.println("====== (4) Consultar Historico de Vendas ======");
-                System.out.println("====== (Sair)- Finalizar ======================");
+                System.out.println("====== (sair)- Finalizar ======================");
                 System.out.println("===============================================");
                 System.out.print("Opção:");
                 s = Validacao.readString();
-                switch(s) {
+                if(s == null ) s = "Sair";
+                switch (s) {
                     case "0":
-                        s = Validacao.readString();
-                        servidor.printOnFornecedor(s);
+                        servidor.printOnFornecedor(Validacao.readString());
                         break;
-                    case "Sair":
+                    case "1":
+                        Fornecedor_Metodos_Auxiliares.adicionarProdutoServidor(servidor,fornecedor);
+                        break;
+                    case "2":
+                        break;
+                    case "3":
+                        break;
+                    case "4":
+                        Fornecedor_Metodos_Auxiliares.consultarHistoricoVendasServidor(servidor,fornecedor);
+                        break;
+                    case "sair":
                         return;
                 }
             }
