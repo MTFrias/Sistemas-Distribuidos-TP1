@@ -10,6 +10,7 @@ import ubi.di.sd.Servidor.Interface_Servidor_Vendedor;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 
 public class Vendedor extends java.rmi.server.UnicastRemoteObject implements Interface_Vendedor_Servidor {
 
@@ -39,17 +40,21 @@ public class Vendedor extends java.rmi.server.UnicastRemoteObject implements Int
 
     public static void main(String[] args) {
         String s;
+        String ipServer = "192.168.1.68";
+        int portServer = 1099;
         //Vinícius: grant.policy
-       // System.setProperty("java.security.policy", "/Users/vinciusrodriguessilvacosta/IdeaProjects/Sistemas-Distribuidos-TP1/TP1/grant.policy");
+        //System.setProperty("java.security.policy", "/Users/vinciusrodriguessilvacosta/IdeaProjects/Sistemas-Distribuidos-TP1/TP1/grant.policy");
         //Miguel
         //System.setProperty("java.security.policy", "/home/frias/GitHub/Sistemas-Distribuidos-TP1/TP1/grant.policy");
 
         //Hermenegildo: grant.policy
-        System.setProperty("java.security.policy", "/Users/Lenovo/IdeaProjects/Sistemas-Distribuidos-TP1/TP1/grant.policy");
+        //System.setProperty("java.security.policy", "/Users/Lenovo/IdeaProjects/Sistemas-Distribuidos-TP1/TP1/grant.policy");
         System.setSecurityManager(new SecurityManager());
         try {
+            Registry registry = LocateRegistry.getRegistry(ipServer,portServer);
+            Interface_Servidor_Vendedor servidor = (Interface_Servidor_Vendedor) registry.lookup("Servidor");
             LocateRegistry.getRegistry(1099);
-            Interface_Servidor_Vendedor servidor = (Interface_Servidor_Vendedor) Naming.lookup("Servidor");
+
             Vendedor vendedor = new Vendedor("Vendedor 1");
             servidor.subscribeVendedor(vendedor.nomeVendedor, vendedor);
             while (true) {
