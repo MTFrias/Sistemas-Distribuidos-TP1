@@ -45,7 +45,7 @@ public  class Ficheiros {
                 if (((ArrayList<Peixe>) obj).get(0).getClass() == Peixe.class) {
                     System.out.println("Class do tipo peixe");
 
-                    File file = new File("fPeixe.dat");
+                    File file = new File("C:\\Users\\denis\\IdeaProjects\\Sistemas-Distribuidos-TP1\\TP1\\fPeixe.dat");
                     ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(file));
                     os.writeObject(obj);
                     os.flush();
@@ -145,10 +145,11 @@ public  class Ficheiros {
         ArrayList<Bebidas> vBebidas;
 
         try {
-            System.out.println("A ler informação do ficheiro peixe...");
+            System.out.println("A ler informação do ficheiro bebidas...");
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream("fBebidas.dat"));
 
             vBebidas = (ArrayList<Bebidas>) ois.readObject();
+            System.out.println(vBebidas);
             ois.close();
             return vBebidas;
 
@@ -162,7 +163,7 @@ public  class Ficheiros {
         ArrayList<Frutos> vFrutos;
 
         try {
-            System.out.println("A ler informação do ficheiro peixe...");
+            System.out.println("A ler informação do ficheiro fruto...");
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream("fFrutos.dat"));
 
             vFrutos = (ArrayList<Frutos>) ois.readObject();
@@ -179,7 +180,7 @@ public  class Ficheiros {
         ArrayList<Limpeza> vLimpeza;
 
         try {
-            System.out.println("A ler informação do ficheiro peixe...");
+            System.out.println("A ler informação do ficheiro limpeza...");
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream("fLimpeza.dat"));
 
             vLimpeza = (ArrayList<Limpeza>) ois.readObject();
@@ -196,7 +197,7 @@ public  class Ficheiros {
         ArrayList<Mercearia> vMercearia;
 
         try {
-            System.out.println("A ler informação do ficheiro peixe...");
+            System.out.println("A ler informação do ficheiro mercearia...");
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream("fMercearia.dat"));
 
             vMercearia = (ArrayList<Mercearia>) ois.readObject();

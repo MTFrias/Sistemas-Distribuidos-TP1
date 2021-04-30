@@ -1,5 +1,6 @@
 package ubi.di.sd.Servidor;
 
+import ubi.di.sd.Fornecedor.Fornecedor_Metodos_Auxiliares;
 import ubi.di.sd.Fornecedor.Interface_Fornecedor_Servidor;
 import ubi.di.sd.Model.*;
 
@@ -21,6 +22,37 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
     private static ArrayList<Limpeza> limpezas;
     private static ArrayList<Produto> obj;
 
+    public static ArrayList<Interface_Fornecedor_Servidor> getFormer() {
+        return former;
+    }
+
+    public static ArrayList<Bebidas> getBebidas() {
+        return bebidas;
+    }
+
+    public static ArrayList<Carne> getCarnes() {
+        return carnes;
+    }
+
+    public static ArrayList<Peixe> getPeixes() {
+        return peixes;
+    }
+
+    public static ArrayList<Mercearia> getMercearias() {
+        return mercearias;
+    }
+
+    public static ArrayList<Frutos> getFrutos() {
+        return frutos;
+    }
+
+    public static ArrayList<Limpeza> getLimpezas() {
+        return limpezas;
+    }
+
+    public static ArrayList<Produto> getObj() {
+        return obj;
+    }
 
     public Servidor() throws java.rmi.RemoteException {
         super();
@@ -33,16 +65,25 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
         limpezas = new ArrayList<>();
         frutos = new ArrayList<>();
         obj = new ArrayList<>();
+        if(Ficheiros.CarregarBebidas() != null)
+        {
+            bebidas = Ficheiros.CarregarBebidas();
+            for (Bebidas b: Ficheiros.CarregarBebidas()) {
+                System.out.println(b);
+                obj.add(b);
+            }
+        }
+
         frutos.add(new Frutos("Sardinha", 20, 2.5, 3.0, LocalDateTime.now(), 10, "Fornecedor 1"));
-        obj.add(new Frutos("Sardinha", 20, 2.5, 3.0, LocalDateTime.now(), 10, "Fornecedor 1"));
+        obj.add(frutos.get(0));
         frutos.add(new Frutos("Bagri", 50, 3, 4.0, LocalDateTime.now(), 12, "Fornecedor 1"));
-        obj.add(new Frutos("Bagri", 50, 3, 4.0, LocalDateTime.now(), 12, "Fornecedor 1"));
-        bebidas.add(new Bebidas("Cerveja", 100, 1.2, 1.6, LocalDateTime.now(), 24, "Fornecedor 1"));
-        obj.add(new Bebidas("Cerveja", 100, 1.2, 1.6, LocalDateTime.now(), 24, "Fornecedor 1"));
+        obj.add(frutos.get(1));
+        /*bebidas.add(new Bebidas("Cerveja", 100, 1.2, 1.6, LocalDateTime.now(), 24, "Fornecedor 1"));
+        obj.add(bebidas.get(0));
         bebidas.add(new Bebidas("Vinho", 100, 1.2, 1.6, LocalDateTime.now(), 24, "Fornecedor 1"));
-        obj.add(new Bebidas("Vinho", 100, 1.2, 1.6, LocalDateTime.now(), 24, "Fornecedor 1"));
+        obj.add(bebidas.get(1));
         bebidas.add(new Bebidas("Cidra", 100, 1.2, 1.6, LocalDateTime.now(), 24, "Fornecedor 1"));
-        obj.add(new Bebidas("Cidra", 100, 1.2, 1.6, LocalDateTime.now(), 24, "Fornecedor 1"));
+        obj.add(bebidas.get(2));*/
     }
 
     /* ================================================================ */
@@ -63,36 +104,42 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
         for (Peixe item : peixes) {
             if (item.getID() == _idProduto) {
                 peixes.remove(item);
+                obj.remove(item);
                 return item.getNome() + " Removido com sucesso!";
             }
         }
         for (Carne item : carnes) {
             if (item.getID() == _idProduto) {
                 carnes.remove(item);
+                obj.remove(item);
                 return item.getNome() + " Removido com sucesso!";
             }
         }
         for (Frutos item : frutos) {
             if (item.getID() == _idProduto) {
                 frutos.remove(item);
+                obj.remove(item);
                 return item.getNome() + " Removido com sucesso!";
             }
         }
         for (Mercearia item : mercearias) {
             if (item.getID() == _idProduto) {
                 mercearias.remove(item);
+                obj.remove(item);
                 return item.getNome() + " Removido com sucesso!";
             }
         }
         for (Bebidas item : bebidas) {
             if (item.getID() == _idProduto) {
                 bebidas.remove(item);
+                obj.remove(item);
                 return item.getNome() + " Removido com sucesso!";
             }
         }
         for (Limpeza item : limpezas) {
             if (item.getID() == _idProduto) {
                 limpezas.remove(item);
+                obj.remove(item);
                 return item.getNome() + " Removido com sucesso!";
             }
         }
@@ -178,7 +225,9 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
 
     public static void main(String[] args) {
         //Vinícius: grant.policy
-        System.setProperty("java.security.policy", "/Users/vinciusrodriguessilvacosta/IdeaProjects/Sistemas-Distribuidos-TP1/TP1/grant.policy");
+        //System.setProperty("java.security.policy", "/Users/vinciusrodriguessilvacosta/IdeaProjects/Sistemas-Distribuidos-TP1/TP1/grant.policy");
+        //System.setProperty("java.security.policy", "C:\\Users\\denis\\IdeaProjects\\Sistemas-Distribuidos-TP1\\TP1\\grant.policy");
+
         //Miguel
         //System.setProperty("java.security.policy", "/home/frias/GitHub/Sistemas-Distribuidos-TP1/TP1/grant.policy");
         System.setSecurityManager(new SecurityManager());
@@ -187,11 +236,31 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
             Servidor h = new Servidor();
             Naming.rebind("Servidor", h);
             System.out.println("Servidor ativado");
-
+            String s= "";
             while (true) {
-                //System.out.println("Mensagem para o cliente:");
-                //s= lerString();
-                // client.printOnClient(s);
+                System.out.println("============================================================");
+                System.out.println("=============== Opções de Comunicação ======================");
+                System.out.println("====== (0) Comunicar Servidor ==============================");
+                System.out.println("====== (1) Adicionar Produto ===============================");
+                System.out.println("================= (sair)- Finalizar ========================");
+                System.out.println("============================================================");
+                System.out.print("Opção:");
+                s = Validacao.readString();
+                if(s == null ) s = "Sair";
+                switch (s) {
+                    case "0":
+                        break;
+                    case "1":
+                        break;
+                    case "sair":
+                        Ficheiros.GuardaInformacao(Servidor.getCarnes());
+                        Ficheiros.GuardaInformacao(Servidor.getBebidas());
+                        Ficheiros.GuardaInformacao(Servidor.getFrutos());
+                        Ficheiros.GuardaInformacao(Servidor.getLimpezas());
+                        Ficheiros.GuardaInformacao(Servidor.getMercearias());
+                        Ficheiros.GuardaInformacao(Servidor.getPeixes());
+                        System.exit(0);
+                }
             }
         } catch (RemoteException r) {
             System.out.println("Exception in server" + r.getMessage());
