@@ -42,6 +42,7 @@ public class Fornecedor extends java.rmi.server.UnicastRemoteObject implements I
             //LocateRegistry.getRegistry(1099);
             Registry registry = LocateRegistry.getRegistry(ipServer,portServer);
             Interface_Servidor_Fornecedor servidor = (Interface_Servidor_Fornecedor) registry.lookup("Servidor");
+            LocateRegistry.getRegistry(1099);
             Fornecedor fornecedor = new Fornecedor("Fornecedor 1");
             servidor.subscribeFornecedor(fornecedor.nomeFornecedor, fornecedor);
             while (true) {
