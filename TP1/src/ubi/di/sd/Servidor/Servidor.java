@@ -178,7 +178,11 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
 
     public static void main(String[] args) {
         //Vinícius: grant.policy
-        //System.setProperty("java.security.policy", "/Users/vinciusrodriguessilvacosta/IdeaProjects/Sistemas-Distribuidos-TP1/TP1/grant.policy");
+        //System.setProperty("java.security.policy",  "/Users/vinciusrodriguessilvacosta/IdeaProjects/Sistemas-Distribuidos-TP1/TP1/grant.policy");
+
+        //Miguel
+        System.setProperty("java.security.policy", "/home/frias/GitHub/Sistemas-Distribuidos-TP1/TP1/grant.policy");
+
         System.setSecurityManager(new SecurityManager());
         try {
             LocateRegistry.createRegistry(1099);
