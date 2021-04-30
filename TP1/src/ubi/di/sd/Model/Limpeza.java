@@ -2,9 +2,10 @@ package ubi.di.sd.Model;
 
 import ubi.di.sd.Fornecedor.Interface_Fornecedor_Servidor;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class Limpeza extends Produto{
+public class Limpeza extends Produto implements Serializable {
     public Limpeza(){
 
     }
