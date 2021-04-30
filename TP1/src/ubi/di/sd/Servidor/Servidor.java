@@ -1,5 +1,6 @@
 package ubi.di.sd.Servidor;
 
+import ubi.di.sd.Fornecedor.Fornecedor;
 import ubi.di.sd.Fornecedor.Interface_Fornecedor_Servidor;
 import ubi.di.sd.Model.*;
 
@@ -47,6 +48,30 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
         System.out.println(s);
     }
 
+    public String consultarTodasVendas() throws RemoteException {
+        String produto = "";
+        System.out.println();
+        for (Peixe item : peixes) {
+            produto = produto + "\n" + item;
+        }
+        for (Carne item : carnes) {
+            produto = produto + "\n" + item;
+        }
+        for (Frutos item : frutos) {
+            produto = produto + "\n" + item;
+        }
+        for (Mercearia item : mercearias) {
+            produto = produto + "\n" + item;
+        }
+        for (Bebidas item : bebidas) {
+            produto = produto + "\n" + item;
+        }
+        for (Limpeza item : limpezas) {
+            produto = produto + "\n" + item;
+        }
+        return produto;
+    }
+
     public void subscribeFornecedor(String name, Interface_Fornecedor_Servidor fornecedor) throws java.rmi.RemoteException {
         System.out.println("Fornecedor Adicionado: " + name);
         fornecedores.add(fornecedor);
@@ -87,7 +112,34 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
         String produto = "";
         System.out.println();
         for (Peixe item : peixes) {
-
+            if (item.getFornecedor().equals(_fornecedor.getNomeFornecedor())) {
+                produto = produto + "\n" + item;
+            }
+        }
+        for (Carne item : carnes) {
+            if (item.getFornecedor().equals(_fornecedor.getNomeFornecedor())) {
+                produto = produto + "\n" + item;
+            }
+        }
+        for (Frutos item : frutos) {
+            if (item.getFornecedor().equals(_fornecedor.getNomeFornecedor())) {
+                produto = produto + "\n" + item;
+            }
+        }
+        for (Mercearia item : mercearias) {
+            if (item.getFornecedor().equals(_fornecedor.getNomeFornecedor())) {
+                produto = produto + "\n" + item;
+            }
+        }
+        for (Bebidas item : bebidas) {
+            if (item.getFornecedor().equals(_fornecedor.getNomeFornecedor())) {
+                produto = produto + "\n" + item;
+            }
+        }
+        for (Limpeza item : limpezas) {
+            if (item.getFornecedor().equals(_fornecedor.getNomeFornecedor())) {
+                produto = produto + "\n" + item;
+            }
         }
         return produto;
     }

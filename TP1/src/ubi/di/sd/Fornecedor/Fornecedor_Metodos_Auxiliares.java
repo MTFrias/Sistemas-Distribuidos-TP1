@@ -15,8 +15,16 @@ public class Fornecedor_Metodos_Auxiliares {
     }
 
     public static int escreverStock() {
+        int num = 0;
         System.out.print("Número de Stock:");
-        return Integer.parseInt(Objects.requireNonNull(Validacao.readString()));
+        do {
+            try {
+                num = Integer.parseInt(Validacao.readString());
+            }catch(Exception e){
+                num = 0;
+            }
+        } while (num <= 0);
+        return num;
     }
 
     public static double escreverPrecoCompra() {
@@ -40,14 +48,11 @@ public class Fornecedor_Metodos_Auxiliares {
         return Integer.parseInt(Objects.requireNonNull(Validacao.readString()));
     }
 
-    public static void consultarHistoricoVendasServidor(Interface_Servidor_Fornecedor servidor, Interface_Fornecedor_Servidor fornecedor) throws RemoteException {
-        System.out.println(servidor.consultarVendas(fornecedor));
-    }
 
     public static void adicionarProdutoServidor(Interface_Servidor_Fornecedor servidor, Interface_Fornecedor_Servidor fornecedor) throws RemoteException {
-        String s,nome;
-        double pc,pv;
-        int st,qm;
+        String s, nome;
+        double pc, pv;
+        int st, qm;
         LocalDateTime v;
         while (true) {
             System.out.println("=======================================");
@@ -62,7 +67,7 @@ public class Fornecedor_Metodos_Auxiliares {
             System.out.println("=======================================");
             System.out.print("Opção:");
             s = Validacao.readString();
-            if(s == null) s = "sair";
+            if (s == null) s = "sair";
             switch (s) {
                 case "1":
                 case "2":
@@ -76,7 +81,7 @@ public class Fornecedor_Metodos_Auxiliares {
                     st = escreverStock();
                     qm = escreverQuantidadeMinima();
                     v = escreverValidade();
-                    servidor.adicionarProduto(nome, st, pc, pv, v, qm, fornecedor,s);
+                    servidor.adicionarProduto(nome, st, pc, pv, v, qm, fornecedor, s);
                     break;
                 case "Sair":
                     return;
@@ -85,4 +90,11 @@ public class Fornecedor_Metodos_Auxiliares {
     }
 
 
+    public static void consultarHistoricoVendasServidorTotal(Interface_Servidor_Fornecedor servidor) throws RemoteException {
+        System.out.println(servidor.consultarTodasVendas());
+    }
+
+    public static void consultarHistoricoVendasServidor(Interface_Servidor_Fornecedor servidor, Interface_Fornecedor_Servidor fornecedor) throws RemoteException {
+        System.out.println(servidor.consultarVendas(fornecedor));
+    }
 }

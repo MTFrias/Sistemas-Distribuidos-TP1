@@ -30,8 +30,7 @@ public class Fornecedor extends java.rmi.server.UnicastRemoteObject implements I
         //Vinícius: grant.policy
         //System.setProperty("java.security.policy", "/Users/vinciusrodriguessilvacosta/IdeaProjects/Sistemas-Distribuidos-TP1/TP1/grant.policy");
         //Miguel
-        System.setProperty("java.security.policy", "/home/frias/GitHub/Sistemas-Distribuidos-TP1/TP1/grant.policy");
-
+        //System.setProperty("java.security.policy", "/home/frias/GitHub/Sistemas-Distribuidos-TP1/TP1/grant.policy");
         System.setSecurityManager(new SecurityManager());
         try {
             LocateRegistry.createRegistry(1199);
@@ -39,16 +38,16 @@ public class Fornecedor extends java.rmi.server.UnicastRemoteObject implements I
             Fornecedor fornecedor = new Fornecedor("Fornecedor 1");
             servidor.subscribeFornecedor(fornecedor.nomeFornecedor, fornecedor);
             while (true) {
-                System.out.println("===============================================");
-                System.out.println("================== Opções =====================");
-                System.out.println("====== (0) Comunicar Servidor =================");
-                System.out.println("====== (1) Registrar Produto ==================");
-                System.out.println("====== (2) Adicionar Produtos (já existentes) =");
-                System.out.println("====== (3) Remover Produtos ===================");
-                System.out.println("====== (4) Consultar Historico de Fornecimentos ======");
-                System.out.println("====== (5) Consultar Historico de Todas as Vendas ======");
-                System.out.println("====== (sair)- Finalizar ======================");
-                System.out.println("===============================================");
+                System.out.println("============================================================");
+                System.out.println("================== Opções ==================================");
+                System.out.println("====== (0) Comunicar Servidor ==============================");
+                System.out.println("====== (1) Registrar Produto ===============================");
+                System.out.println("====== (2) Adicionar Produtos (já existentes) ==============");
+                System.out.println("====== (3) Remover Produtos ================================");
+                System.out.println("====== (4) Consultar Historico de Vendas ===================");
+                System.out.println("====== (5) Consultar Historico Vendidos Pelo Servidor ======");
+                System.out.println("====== (sair)- Finalizar ===================================");
+                System.out.println("============================================================");
                 System.out.print("Opção:");
                 s = Validacao.readString();
                 if(s == null ) s = "Sair";
@@ -65,6 +64,9 @@ public class Fornecedor extends java.rmi.server.UnicastRemoteObject implements I
                         break;
                     case "4":
                         Fornecedor_Metodos_Auxiliares.consultarHistoricoVendasServidor(servidor,fornecedor);
+                        break;
+                    case "5":
+                        Fornecedor_Metodos_Auxiliares.consultarHistoricoVendasServidorTotal(servidor);
                         break;
                     case "sair":
 

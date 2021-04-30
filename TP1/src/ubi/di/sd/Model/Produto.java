@@ -19,7 +19,7 @@ public class Produto implements Serializable {
     private int quantidadeMinima;
     private int ID = 0;
     private static int numProduct = 0;
-    private ArrayList<String> fornecedores;
+    private String fornecedor;
 
     public Produto(){
 
@@ -35,8 +35,27 @@ public class Produto implements Serializable {
             this.quantidadeMinima = _quantidadeMinima;
             this.ID = numProduct;
             numProduct++;
-            fornecedores = new ArrayList<>();
-            fornecedores.add(_fornecedor);
+            this.fornecedor = _fornecedor;
+    }
+
+    @Override
+    public String toString() {
+        return "nome: " + nome  +
+                ", stock: " + stock +
+                ", precoCompra: " + precoCompra +
+                ", precoVenda: " + precoVenda +
+                ", validade: " + validade +
+                ", quantidadeMinima: " + quantidadeMinima +
+                ", ID: " + ID +
+                ", fornecedores: " + fornecedor;
+    }
+
+    public String getFornecedor() {
+        return fornecedor;
+    }
+
+    public void setFornecedor(String fornecedor) {
+        this.fornecedor = fornecedor;
     }
 
     public String getNome() {
@@ -103,11 +122,4 @@ public class Produto implements Serializable {
         Produto.numProduct = numProduct;
     }
 
-    public ArrayList<String> getFornecedores() {
-        return fornecedores;
-    }
-
-    public void setFornecedores(ArrayList<String> fornecedores) {
-        this.fornecedores = fornecedores;
-    }
 }
