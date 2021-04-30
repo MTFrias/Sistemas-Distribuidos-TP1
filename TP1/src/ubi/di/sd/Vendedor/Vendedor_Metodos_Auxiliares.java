@@ -13,7 +13,7 @@ public class Vendedor_Metodos_Auxiliares {
 
     public static void consultarProdutosEmStock(Interface_Servidor_Vendedor servidor, Interface_Vendedor_Servidor vendedor) throws RemoteException {
         System.out.println("FLAG222");
-        System.out.println(servidor.consultarProduto(vendedor));
+        //System.out.println(servidor.consultarProduto(vendedor));
     }
 
     public static void consultarProdutoServidor(Interface_Servidor_Vendedor servidor, Interface_Vendedor_Servidor vendedor) throws RemoteException {
