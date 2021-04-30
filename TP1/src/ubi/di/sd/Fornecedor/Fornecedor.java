@@ -1,5 +1,6 @@
 package ubi.di.sd.Fornecedor;
 
+import ubi.di.sd.Model.Ficheiros;
 import ubi.di.sd.Model.Validacao;
 import ubi.di.sd.Servidor.Interface_Servidor_Fornecedor;
 import java.rmi.Naming;
@@ -66,6 +67,7 @@ public class Fornecedor extends java.rmi.server.UnicastRemoteObject implements I
                         Fornecedor_Metodos_Auxiliares.consultarHistoricoVendasServidor(servidor,fornecedor);
                         break;
                     case "sair":
+
                         return;
                 }
             }
