@@ -229,6 +229,7 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
         System.setProperty("java.security.policy", "C:\\Users\\denis\\IdeaProjects\\Sistemas-Distribuidos-TP1\\TP1\\grant.policy");
 
         //Miguel
+        // System.setProperty("java.security.policy", "->Path do seu policy<-");
         //System.setProperty("java.security.policy", "/home/frias/GitHub/Sistemas-Distribuidos-TP1/TP1/grant.policy");
         System.setSecurityManager(new SecurityManager());
         try {
@@ -236,7 +237,7 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
             Servidor h = new Servidor();
             Naming.rebind("Servidor", h);
             System.out.println("Servidor ativado");
-            String s= "";
+            String s = "";
             while (true) {
                 System.out.println("============================================================");
                 System.out.println("=============== Opções de Comunicação ======================");

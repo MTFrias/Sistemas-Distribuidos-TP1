@@ -129,9 +129,8 @@ public class Fornecedor_Metodos_Auxiliares {
     public static void removeProduto(Interface_Servidor_Fornecedor servidor, Interface_Fornecedor_Servidor fornecedor) throws RemoteException {
         while (true) {
             System.out.println("======================================================");
-            System.out.println("=================== Servidor =========================");
-            System.out.println("======= (1) Manda Mensagem para um Fornecedor ========");
-            System.out.println("======= (2) Manda Mensagem para um Vendedor ==========");
+            System.out.println("======== Opções de Eliminar um Porduto ===============");
+            System.out.println("======= (1) Eliminar um Produto ======================");
             System.out.println("======= (sair)- Finalizar ============================");
             System.out.println("======================================================");
             System.out.print("Opção:");
@@ -139,7 +138,8 @@ public class Fornecedor_Metodos_Auxiliares {
             if (s == null) s = "sair";
             switch (s) {
                 case "1":
-                    break;
+                    System.out.println(servidor.consultarCompras(fornecedor, 1));
+                    System.out.println(servidor.removeProduto(fornecedor, escreverId()));
                 case "sair":
                     return;
             }
