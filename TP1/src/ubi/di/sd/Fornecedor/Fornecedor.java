@@ -28,9 +28,12 @@ public class Fornecedor extends java.rmi.server.UnicastRemoteObject implements I
     public static void main(String[] args) {
         String s;
         //Vinícius: grant.policy
-        System.setProperty("java.security.policy", "/Users/vinciusrodriguessilvacosta/IdeaProjects/Sistemas-Distribuidos-TP1/TP1/grant.policy");
+        //System.setProperty("java.security.policy", "/Users/vinciusrodriguessilvacosta/IdeaProjects/Sistemas-Distribuidos-TP1/TP1/grant.policy");
         //Miguel
         //System.setProperty("java.security.policy", "/home/frias/GitHub/Sistemas-Distribuidos-TP1/TP1/grant.policy");
+
+        //Hermenegildo: grant.policy
+        System.setProperty("java.security.policy", "/Users/Lenovo/IdeaProjects/Sistemas-Distribuidos-TP1/TP1/grant.policy");
         System.setSecurityManager(new SecurityManager());
         try {
             LocateRegistry.getRegistry(1099);
