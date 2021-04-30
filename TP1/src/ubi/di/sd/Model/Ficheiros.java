@@ -4,16 +4,19 @@ package ubi.di.sd.Model;
 
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.Vector;
 
 public  class Ficheiros {
 
 
-    public static void InserirNovoPeixe(){
+  /*  public static void InserirNovoPeixe(){
 
         //Verificar se esta função está a funcionar
         //Recebe a informação do ficheiro!
-        /*Vector<Peixe> vectorPeixes = lerInformacao();
+        Vector<Peixe> vectorPeixes = lerInformacao();
 
         System.out.println("Quantos produtos novos quer inserir?");
         int quantidade= Ler.umInt();
@@ -32,20 +35,68 @@ public  class Ficheiros {
             vectorPeixes.add(novoPeixe);
         }
     }
+*/
 
 
-    public static void GuardaPeixaria(Vector<Peixe> obj) {
-
+    public static void GuardaInformacao(Object obj) {
         try {
-            System.out.println("Guardar Ficheiro \n");
+            if(((ArrayList)obj).size() != 0) {
 
-            File file = new File("Peixaria.dat");
-            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(file));
-            os.writeObject(obj);
-            os.flush();
-            os.close();
+                if (((ArrayList<Peixe>) obj).get(0).getClass() == Peixe.class) {
+                    System.out.println("Class do tipo peixe");
 
-            System.out.println("Ficheiro guardado com sucesso!!");
+                    File file = new File("fPeixe.dat");
+                    ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(file));
+                    os.writeObject(obj);
+                    os.flush();
+                    os.close();
+
+                    System.out.println("Ficheiro para peixe guardado com sucesso!!");
+
+                } else if(((ArrayList<Carne>) obj).get(0).getClass() == Carne.class) {
+                    File file = new File("fCarne.dat");
+                    ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(file));
+                    os.writeObject(obj);
+                    os.flush();
+                    os.close();
+
+                    System.out.println("Ficheiro para carne guardado com sucesso!!");
+                } else if(((ArrayList<Bebidas>)obj).get(0).getClass() == Bebidas.class){
+                    File file = new File("fBebidas.dat");
+                    ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(file));
+                    os.writeObject(obj);
+                    os.flush();
+                    os.close();
+
+                    System.out.println("Ficheiro para bebidas guardado com sucesso!!");
+                } else if(((ArrayList<Frutos>)obj).get(0).getClass() == Frutos.class){
+                    File file = new File("fFrutos.dat");
+                    ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(file));
+                    os.writeObject(obj);
+                    os.flush();
+                    os.close();
+
+                    System.out.println("Ficheiro para frutos guardado com sucesso!!");
+                }else if (((ArrayList<Limpeza>)obj).get(0).getClass() == Limpeza.class){
+                    File file = new File("fLimpeza.dat");
+                    ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(file));
+                    os.writeObject(obj);
+                    os.flush();
+                    os.close();
+
+                    System.out.println("Ficheiro para limpeza guardado com sucesso!!");
+                }else if (((ArrayList<Mercearia>)obj).get(0).getClass() == Mercearia.class){
+                    File file = new File("fMercearia.dat");
+                    ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(file));
+                    os.writeObject(obj);
+                    os.flush();
+                    os.close();
+
+                    System.out.println("Ficheiro para mercearia guardado com sucesso!!");
+                }
+            }else {
+                System.out.println("O Array encontra-se vazio!");
+            }
 
         } catch (Exception e) {
             e.getStackTrace();
@@ -53,19 +104,17 @@ public  class Ficheiros {
 
     }
 
-    public static Vector<Peixe> lerInformacao() {
 
-        Vector<Peixe> vPeixe;
+    public static ArrayList<Peixe> CarregarPeixe() {
+
+        ArrayList<Peixe> vPeixe;
+
         try {
-            System.out.println("Ler Informação Relativa à Peixaria");
-            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("Produtos.dat"));
+            System.out.println("A ler informação do ficheiro peixe...");
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("fPeixe.dat"));
 
-            vPeixe = (Vector<Peixe>) ois.readObject();
-
-            System.out.println("Nome1: " + vPeixe.size());
-
+            vPeixe = (ArrayList<Peixe>) ois.readObject();
             ois.close();
-
             return vPeixe;
 
         } catch (Exception e) {
@@ -75,7 +124,92 @@ public  class Ficheiros {
         }
     }
 
-    public static void EscreverPeixes(Vector<Peixe> vPeixe){
+    public static ArrayList<Carne> CarregarCarne() {
+
+        ArrayList<Carne> vCarne;
+        try {
+            System.out.println("A ler informação do ficheiro carne...");
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("fCarne.dat"));
+
+            vCarne = (ArrayList<Carne>) ois.readObject();
+            ois.close();
+            return vCarne;
+
+        } catch (Exception e) {
+
+            e.getStackTrace();
+            return null;
+        }
+    }
+    public static ArrayList<Bebidas> CarregarBebidas() {
+        ArrayList<Bebidas> vBebidas;
+
+        try {
+            System.out.println("A ler informação do ficheiro peixe...");
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("fBebidas.dat"));
+
+            vBebidas = (ArrayList<Bebidas>) ois.readObject();
+            ois.close();
+            return vBebidas;
+
+        } catch (Exception e) {
+
+            e.getStackTrace();
+            return null;
+        }
+    }
+    public static ArrayList<Frutos> CarregarFrutos() {
+        ArrayList<Frutos> vFrutos;
+
+        try {
+            System.out.println("A ler informação do ficheiro peixe...");
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("fFrutos.dat"));
+
+            vFrutos = (ArrayList<Frutos>) ois.readObject();
+            ois.close();
+            return vFrutos;
+
+        } catch (Exception e) {
+
+            e.getStackTrace();
+            return null;
+        }
+    }
+    public static ArrayList<Limpeza> CarregarLimpeza() {
+        ArrayList<Limpeza> vLimpeza;
+
+        try {
+            System.out.println("A ler informação do ficheiro peixe...");
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("fLimpeza.dat"));
+
+            vLimpeza = (ArrayList<Limpeza>) ois.readObject();
+            ois.close();
+            return vLimpeza;
+
+        } catch (Exception e) {
+
+            e.getStackTrace();
+            return null;
+        }
+    }
+    public static ArrayList<Mercearia> CarregarMercearia() {
+        ArrayList<Mercearia> vMercearia;
+
+        try {
+            System.out.println("A ler informação do ficheiro peixe...");
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("fMercearia.dat"));
+
+            vMercearia = (ArrayList<Mercearia>) ois.readObject();
+            ois.close();
+            return vMercearia;
+
+        } catch (Exception e) {
+
+            e.getStackTrace();
+            return null;
+        }
+    }
+ /*   public static void EscreverPeixes(Vector<Peixe> vPeixe){
 
         for (int i = 0; i < vPeixe.size(); i++) {
             System.out.println("Li do ficheiro os seguintes dados  ");
@@ -84,7 +218,7 @@ public  class Ficheiros {
             System.out.println("Stock: " + vPeixe.get(i).getPreco());
 
         }
-*/
-    }
+
+    }*/
 
 }
