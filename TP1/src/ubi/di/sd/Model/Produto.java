@@ -3,11 +3,8 @@ package ubi.di.sd.Model;
 import ubi.di.sd.Fornecedor.Interface_Fornecedor_Servidor;
 
 import java.io.Serializable;
-import java.sql.SQLOutput;
-import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Date;
+
 
 public class Produto implements Serializable {
 
@@ -15,39 +12,43 @@ public class Produto implements Serializable {
     private int stock;
     private double precoCompra;
     private double precoVenda;
-    private LocalDateTime validade;
+    private LocalDateTime dataValidade;
+    private LocalDateTime dataCompra;
     private int quantidadeMinima;
     private int ID = 0;
     private static int numProduct = 0;
     private String fornecedor;
 
-    public Produto(){
+    public Produto() {
 
     }
 
-
     public Produto(String _nome, int _stock, double _precoCompra, double _precoVenda, LocalDateTime _validade, int _quantidadeMinima, String _fornecedor) {
-            this.stock = _stock;
-            this.nome = _nome;
-            this.precoVenda = _precoVenda;
-            this.precoCompra = _precoCompra;
-            this.validade = _validade;
-            this.quantidadeMinima = _quantidadeMinima;
-            this.ID = numProduct;
-            numProduct++;
-            this.fornecedor = _fornecedor;
+        this.stock = _stock;
+        this.nome = _nome;
+        this.precoVenda = _precoVenda;
+        this.precoCompra = _precoCompra;
+        this.dataValidade = _validade;
+        this.quantidadeMinima = _quantidadeMinima;
+        this.ID = numProduct;
+        this.dataCompra = LocalDateTime.now();
+        numProduct++;
+        this.fornecedor = _fornecedor;
     }
 
     @Override
     public String toString() {
-        return "nome: " + nome  +
-                ", stock: " + stock +
-                ", precoCompra: " + precoCompra +
-                ", precoVenda: " + precoVenda +
-                ", validade: " + validade +
-                ", quantidadeMinima: " + quantidadeMinima +
-                ", ID: " + ID +
-                ", fornecedores: " + fornecedor;
+        return
+                "\n========= Produto ========" +
+                        "\nNome do Produto: " + nome + " =======" +
+                        "\nStock: " + stock + " =======" +
+                        "\nPreco de Compra: " + precoCompra +" =======" +
+                        "\nPreco de Venda: " + precoVenda +" =======" +
+                        "\nValidade: " + dataValidade +" =======" +
+                        "\nData de Compra: " + dataCompra +" =======" +
+                        "\nQuantidade Minima: " + quantidadeMinima +" =======" +
+                        "\nID: " + ID +" =======" +
+                        "\nFornecedor: " + fornecedor + " =======";
     }
 
     public String getFornecedor() {
@@ -88,14 +89,6 @@ public class Produto implements Serializable {
 
     public void setPrecoVenda(double precoVenda) {
         this.precoVenda = precoVenda;
-    }
-
-    public LocalDateTime getValidade() {
-        return validade;
-    }
-
-    public void setValidade(LocalDateTime validade) {
-        this.validade = validade;
     }
 
     public int getQuantidadeMinima() {

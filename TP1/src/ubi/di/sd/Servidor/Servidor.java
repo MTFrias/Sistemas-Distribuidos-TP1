@@ -1,6 +1,5 @@
 package ubi.di.sd.Servidor;
 
-import ubi.di.sd.Fornecedor.Fornecedor;
 import ubi.di.sd.Fornecedor.Interface_Fornecedor_Servidor;
 import ubi.di.sd.Model.*;
 
@@ -8,37 +7,49 @@ import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.*;
 
 public class Servidor extends java.rmi.server.UnicastRemoteObject implements Interface_Servidor_Vendedor, Interface_Servidor_Fornecedor {
 
 
-    private static ArrayList<Interface_Fornecedor_Servidor> fornecedores;
+    private static ArrayList<Interface_Fornecedor_Servidor> former;
     private static ArrayList<Bebidas> bebidas;
     private static ArrayList<Carne> carnes;
     private static ArrayList<Peixe> peixes;
     private static ArrayList<Mercearia> mercearias;
     private static ArrayList<Frutos> frutos;
     private static ArrayList<Limpeza> limpezas;
+    private static ArrayList<Produto> obj;
 
 
     public Servidor() throws java.rmi.RemoteException {
         super();
 
-        fornecedores = new ArrayList<>();
+        former = new ArrayList<>();
         bebidas = new ArrayList<>();
         carnes = new ArrayList<>();
         peixes = new ArrayList<>();
         mercearias = new ArrayList<>();
         limpezas = new ArrayList<>();
         frutos = new ArrayList<>();
+        obj = new ArrayList<>();
+        frutos.add(new Frutos("Sardinha", 20, 2.5, 3.0, LocalDateTime.now(), 10, "Fornecedor 1"));
+        obj.add(new Frutos("Sardinha", 20, 2.5, 3.0, LocalDateTime.now(), 10, "Fornecedor 1"));
+        frutos.add(new Frutos("Bagri", 50, 3, 4.0, LocalDateTime.now(), 12, "Fornecedor 1"));
+        obj.add(new Frutos("Bagri", 50, 3, 4.0, LocalDateTime.now(), 12, "Fornecedor 1"));
+        bebidas.add(new Bebidas("Cerveja", 100, 1.2, 1.6, LocalDateTime.now(), 24, "Fornecedor 1"));
+        obj.add(new Bebidas("Cerveja", 100, 1.2, 1.6, LocalDateTime.now(), 24, "Fornecedor 1"));
+        bebidas.add(new Bebidas("Vinho", 100, 1.2, 1.6, LocalDateTime.now(), 24, "Fornecedor 1"));
+        obj.add(new Bebidas("Vinho", 100, 1.2, 1.6, LocalDateTime.now(), 24, "Fornecedor 1"));
+        bebidas.add(new Bebidas("Cidra", 100, 1.2, 1.6, LocalDateTime.now(), 24, "Fornecedor 1"));
+        obj.add(new Bebidas("Cidra", 100, 1.2, 1.6, LocalDateTime.now(), 24, "Fornecedor 1"));
     }
 
     /* ================================================================ */
     /*Metodos criados para o cliente ================================== */
     @Override
     public void printOnClient(String s) throws RemoteException {
-
+        System.out.println(s);
     }
 
     /* ================================================================ */
@@ -48,100 +59,120 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
         System.out.println(s);
     }
 
-    public String consultarTodasVendas() throws RemoteException {
-        String produto = "";
-        System.out.println();
+    public String removeProduto(Interface_Fornecedor_Servidor _fornecedor, int _idProduto) throws RemoteException {
         for (Peixe item : peixes) {
-            produto = produto + "\n" + item;
+            if (item.getID() == _idProduto) {
+                peixes.remove(item);
+                return item.getNome() + " Removido com sucesso!";
+            }
         }
         for (Carne item : carnes) {
-            produto = produto + "\n" + item;
+            if (item.getID() == _idProduto) {
+                carnes.remove(item);
+                return item.getNome() + " Removido com sucesso!";
+            }
         }
         for (Frutos item : frutos) {
-            produto = produto + "\n" + item;
+            if (item.getID() == _idProduto) {
+                frutos.remove(item);
+                return item.getNome() + " Removido com sucesso!";
+            }
         }
         for (Mercearia item : mercearias) {
-            produto = produto + "\n" + item;
+            if (item.getID() == _idProduto) {
+                mercearias.remove(item);
+                return item.getNome() + " Removido com sucesso!";
+            }
         }
         for (Bebidas item : bebidas) {
-            produto = produto + "\n" + item;
+            if (item.getID() == _idProduto) {
+                bebidas.remove(item);
+                return item.getNome() + " Removido com sucesso!";
+            }
         }
         for (Limpeza item : limpezas) {
-            produto = produto + "\n" + item;
+            if (item.getID() == _idProduto) {
+                limpezas.remove(item);
+                return item.getNome() + " Removido com sucesso!";
+            }
         }
-        return produto;
+        return "ID do produto não encontrado!";
     }
 
     public void subscribeFornecedor(String name, Interface_Fornecedor_Servidor fornecedor) throws java.rmi.RemoteException {
         System.out.println("Fornecedor Adicionado: " + name);
-        fornecedores.add(fornecedor);
+        former.add(fornecedor);
     }
 
-    public void adicionarProduto(String _nome, int _stock, double _precoCompra, double _precoVenda, LocalDateTime _validade, int _quantidadeMinima, Interface_Fornecedor_Servidor _fornecedor, String pos) throws RemoteException {
+    public String adicionarProduto(String _nome, int _stock, double _precoCompra, double _precoVenda, LocalDateTime _validade, int _quantidadeMinima, Interface_Fornecedor_Servidor _fornecedor, String pos) throws RemoteException {
+        Produto p;
         switch (pos) {
             case "1":
-                Peixe p = new Peixe(_nome, _stock, _precoCompra, _precoVenda, _validade, _quantidadeMinima, _fornecedor.getNomeFornecedor());
-                peixes.add(p);
+                p = new Peixe(_nome, _stock, _precoCompra, _precoVenda, _validade, _quantidadeMinima, _fornecedor.getNomeFornecedor());
+                peixes.add((Peixe)p);
+                obj.add(p);
                 break;
             case "2":
-                Carne c = new Carne(_nome, _stock, _precoCompra, _precoVenda, _validade, _quantidadeMinima, _fornecedor.getNomeFornecedor());
-                carnes.add(c);
+                p = new Carne(_nome, _stock, _precoCompra, _precoVenda, _validade, _quantidadeMinima, _fornecedor.getNomeFornecedor());
+                carnes.add((Carne) p);
+                obj.add(p);
                 break;
             case "3":
-                Limpeza l = new Limpeza(_nome, _stock, _precoCompra, _precoVenda, _validade, _quantidadeMinima, _fornecedor.getNomeFornecedor());
-                limpezas.add(l);
+                p = new Limpeza(_nome, _stock, _precoCompra, _precoVenda, _validade, _quantidadeMinima, _fornecedor.getNomeFornecedor());
+                limpezas.add((Limpeza) p);
+                obj.add(p);
                 break;
             case "4":
-                Bebidas b = new Bebidas(_nome, _stock, _precoCompra, _precoVenda, _validade, _quantidadeMinima, _fornecedor.getNomeFornecedor());
-                bebidas.add(b);
+                p = new Bebidas(_nome, _stock, _precoCompra, _precoVenda, _validade, _quantidadeMinima, _fornecedor.getNomeFornecedor());
+                bebidas.add((Bebidas) p);
+                obj.add(p);
                 break;
             case "5":
-                Frutos f = new Frutos(_nome, _stock, _precoCompra, _precoVenda, _validade, _quantidadeMinima, _fornecedor.getNomeFornecedor());
-                frutos.add(f);
+                p = new Frutos(_nome, _stock, _precoCompra, _precoVenda, _validade, _quantidadeMinima, _fornecedor.getNomeFornecedor());
+                frutos.add((Frutos) p);
+                obj.add(p);
                 break;
             case "6":
-                Mercearia m = new Mercearia(_nome, _stock, _precoCompra, _precoVenda, _validade, _quantidadeMinima, _fornecedor.getNomeFornecedor());
-                mercearias.add(m);
+                p = new Mercearia(_nome, _stock, _precoCompra, _precoVenda, _validade, _quantidadeMinima, _fornecedor.getNomeFornecedor());
+                mercearias.add((Mercearia) p);
+                obj.add(p);
                 break;
             case "Sair":
-                return;
+                return "Saindo...";
         }
+        return " Adicionado com Sucesso!";
     }
 
-    public String consultarVendas(Interface_Fornecedor_Servidor _fornecedor) throws RemoteException {
-        String produto = "";
-        System.out.println();
-        for (Peixe item : peixes) {
+
+    public String consultarCompras(Interface_Fornecedor_Servidor _fornecedor, int _ordenar) throws RemoteException {
+        String s = "";
+        switch (_ordenar) {
+            case 1:
+                obj.sort((o1, o2) -> Double.compare(o2.getPrecoCompra(), o1.getPrecoCompra()));
+                break;
+            case 2:
+                obj.sort(Comparator.comparingDouble(Produto::getPrecoCompra));
+                break;
+            case 3:
+                obj.sort(Comparator.comparing(Produto::getNome));
+                break;
+            case 4:
+                obj.sort((p1, p2) -> p2.getNome().compareTo(p1.getNome()));
+                break;
+            case 5:
+                return obj.toString();
+        }
+        for (Produto item : obj) {
             if (item.getFornecedor().equals(_fornecedor.getNomeFornecedor())) {
-                produto = produto + "\n" + item;
+                s = s + "\n" + item.getNome() + " " + item.getPrecoCompra();
             }
         }
-        for (Carne item : carnes) {
-            if (item.getFornecedor().equals(_fornecedor.getNomeFornecedor())) {
-                produto = produto + "\n" + item;
-            }
-        }
-        for (Frutos item : frutos) {
-            if (item.getFornecedor().equals(_fornecedor.getNomeFornecedor())) {
-                produto = produto + "\n" + item;
-            }
-        }
-        for (Mercearia item : mercearias) {
-            if (item.getFornecedor().equals(_fornecedor.getNomeFornecedor())) {
-                produto = produto + "\n" + item;
-            }
-        }
-        for (Bebidas item : bebidas) {
-            if (item.getFornecedor().equals(_fornecedor.getNomeFornecedor())) {
-                produto = produto + "\n" + item;
-            }
-        }
-        for (Limpeza item : limpezas) {
-            if (item.getFornecedor().equals(_fornecedor.getNomeFornecedor())) {
-                produto = produto + "\n" + item;
-            }
-        }
-        return produto;
+        return s;
+    }
+
+    public String consultarVendas(Interface_Fornecedor_Servidor _fornecedor, int _ordenar) throws RemoteException {
+        String s = "";
+        return s;
     }
     /* ================================================================ */
 
