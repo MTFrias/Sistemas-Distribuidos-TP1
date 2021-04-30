@@ -3,9 +3,12 @@ package ubi.di.sd.Fornecedor;
 import ubi.di.sd.Model.Ficheiros;
 import ubi.di.sd.Model.Validacao;
 import ubi.di.sd.Servidor.Interface_Servidor_Fornecedor;
+
+import javax.swing.text.html.HTMLDocument;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 
 public class Fornecedor extends java.rmi.server.UnicastRemoteObject implements Interface_Fornecedor_Servidor {
 
@@ -26,6 +29,9 @@ public class Fornecedor extends java.rmi.server.UnicastRemoteObject implements I
     }
 
     public static void main(String[] args) {
+
+        String ipServer = "192.168.1.68";
+        int portServer = 1099;
         String s;
         //Vinícius: grant.policy
         //System.setProperty("java.security.policy", "/Users/vinciusrodriguessilvacosta/IdeaProjects/Sistemas-Distribuidos-TP1/TP1/grant.policy");
@@ -36,8 +42,10 @@ public class Fornecedor extends java.rmi.server.UnicastRemoteObject implements I
         System.setProperty("java.security.policy", "/Users/Lenovo/IdeaProjects/Sistemas-Distribuidos-TP1/TP1/grant.policy");
         System.setSecurityManager(new SecurityManager());
         try {
+            //LocateRegistry.getRegistry(1099);
+            Registry registry = LocateRegistry.getRegistry(ipServer,portServer);
+            Interface_Servidor_Fornecedor servidor = (Interface_Servidor_Fornecedor) registry.lookup("Servidor");
             LocateRegistry.getRegistry(1099);
-            Interface_Servidor_Fornecedor servidor = (Interface_Servidor_Fornecedor) Naming.lookup("Servidor");
             Fornecedor fornecedor = new Fornecedor("Fornecedor 1");
             servidor.subscribeFornecedor(fornecedor.nomeFornecedor, fornecedor);
             while (true) {

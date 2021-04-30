@@ -27,7 +27,6 @@ public class Vendedor_Metodos_Auxiliares {
             System.out.println("====== (4) Consultar Bebidas ==========");
             System.out.println("====== (5) Consultar Frutos ===========");
             System.out.println("====== (6) Consultar Mercearia ========");
-            System.out.println("=======================================");
             System.out.println("====== (7) Listar Todos Produtos ======");
             System.out.println("====== (sair) - Finalizar =============");
             System.out.println("=======================================");
@@ -101,8 +100,6 @@ public class Vendedor_Metodos_Auxiliares {
                     break;
                 case "Sair":
                     return;
-                default:
-                    break;
             }
         }
     }

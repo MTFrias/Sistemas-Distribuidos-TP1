@@ -1,5 +1,6 @@
 package ubi.di.sd.Fornecedor;
 
+import Ler.Ler;
 import ubi.di.sd.Model.*;
 import ubi.di.sd.Servidor.Interface_Servidor_Fornecedor;
 
@@ -12,46 +13,43 @@ public class Fornecedor_Metodos_Auxiliares {
 
     public static String escreverNome() {
         System.out.print("Nome do produto:");
-        return Validacao.readString();
+        String s = Validacao.readString();
+        if(s == null){
+            s = "Vázio!";
+        }
+        return s;
     }
 
     public static int escreverStock() {
-        int num = 0;
-        System.out.print("Número de Stock:");
-        do {
-            try {
-                num = Integer.parseInt(Validacao.readString());
-            } catch (Exception e) {
-                num = 0;
-            }
-        } while (num <= 0);
-        return num;
+        System.out.print("Quantos produtos para comprar:");
+        return Ler.umInt();
     }
 
     public static int escreverId() {
         System.out.print("ID do produto:");
-        return Integer.parseInt(Objects.requireNonNull(Validacao.readString()));
+        return Ler.umInt();
     }
 
     public static double escreverPrecoCompra() {
         System.out.print("Preco do produto para se comprar:");
-        return Double.parseDouble(Objects.requireNonNull(Validacao.readString()));
+        return Ler.umDouble();
     }
 
     public static double escreverPrecoVenda() {
-        System.out.print("Preco do produto para se vender:");
-        return Double.parseDouble(Objects.requireNonNull(Validacao.readString()));
+        System.out.print("Preço do produto para se vender:");
+        return Ler.umDouble();
     }
 
     public static LocalDateTime escreverValidade() {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        //LocalDateTime now = LocalDateTime.now();
-        return LocalDateTime.now();
+        LocalDateTime now = LocalDateTime.now();
+        System.out.print("Quantos meses de validade:");
+        return LocalDateTime.now().plusMonths(Ler.umInt());
     }
 
     public static int escreverQuantidadeMinima() {
         System.out.print("Quantidade minima:");
-        return Integer.parseInt(Objects.requireNonNull(Validacao.readString()));
+        return Ler.umInt();
     }
 
 
