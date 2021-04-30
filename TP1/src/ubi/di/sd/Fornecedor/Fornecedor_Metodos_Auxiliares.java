@@ -21,7 +21,7 @@ public class Fornecedor_Metodos_Auxiliares {
         do {
             try {
                 num = Integer.parseInt(Validacao.readString());
-            }catch(Exception e){
+            } catch (Exception e) {
                 num = 0;
             }
         } while (num <= 0);
@@ -73,7 +73,7 @@ public class Fornecedor_Metodos_Auxiliares {
             System.out.println("=======================================");
             System.out.print("Opção:");
             s = Validacao.readString();
-            if (s!= null && (s.equals("1") || s.equals("2") || s.equals("3") || s.equals("4") || s.equals("5") || s.equals("6"))) {
+            if (s != null && (s.equals("1") || s.equals("2") || s.equals("3") || s.equals("4") || s.equals("5") || s.equals("6"))) {
                 nome = escreverNome();
                 pc = escreverPrecoCompra();
                 pv = escreverPrecoVenda();
@@ -129,9 +129,24 @@ public class Fornecedor_Metodos_Auxiliares {
     }
 
     public static void removeProduto(Interface_Servidor_Fornecedor servidor, Interface_Fornecedor_Servidor fornecedor) throws RemoteException {
-        System.out.println(servidor.consultarVendas(fornecedor,1));
-        System.out.println(servidor.removeProduto(fornecedor, escreverId()));
-        System.out.println("Para continuar aperte alguma tecla!");
-        String s = Validacao.readString();
+        while (true) {
+            System.out.println("======================================================");
+            System.out.println("======== Opções de Eliminar um Porduto ===============");
+            System.out.println("======= (1) Eliminar um Produto ======================");
+            System.out.println("======= (sair)- Finalizar ============================");
+            System.out.println("======================================================");
+            System.out.print("Opção:");
+            String s = Validacao.readString();
+            if (s == null) s = "sair";
+            switch (s) {
+                case "1":
+                    System.out.println(servidor.consultarCompras(fornecedor, 1));
+                    System.out.println(servidor.removeProduto(fornecedor, escreverId()));
+                case "sair":
+                    return;
+            }
+            System.out.println("Para continuar aperte alguma tecla!");
+            s = Validacao.readString();
+        }
     }
 }
