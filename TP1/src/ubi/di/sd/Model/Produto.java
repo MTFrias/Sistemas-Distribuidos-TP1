@@ -4,6 +4,7 @@ import ubi.di.sd.Fornecedor.Interface_Fornecedor_Servidor;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 
 public class Produto implements Serializable {
@@ -31,6 +32,8 @@ public class Produto implements Serializable {
         this.dataValidade = _validade;
         this.quantidadeMinima = _quantidadeMinima;
         this.ID = numProduct;
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDateTime now = LocalDateTime.now();
         this.dataCompra = LocalDateTime.now();
         numProduct++;
         this.fornecedor = _fornecedor;
