@@ -36,14 +36,14 @@ public class Fornecedor extends java.rmi.server.UnicastRemoteObject implements I
             servidor.subscribeFornecedor(fornecedor.nomeFornecedor, fornecedor);
             while (true) {
                 System.out.println("============================================================");
-                System.out.println("================== Opções ==================================");
+                System.out.println("=============== Opções de Comunicação ======================");
                 System.out.println("====== (0) Comunicar Servidor ==============================");
-                System.out.println("====== (1) Registrar Produto ===============================");
+                System.out.println("====== (1) Adicionar Produto ===============================");
                 System.out.println("====== (2) Adicionar Produtos (já existentes) ==============");
                 System.out.println("====== (3) Remover Produtos ================================");
-                System.out.println("====== (4) Consultar Historico de Vendas ===================");
-                System.out.println("====== (5) Consultar Historico Vendidos Pelo Servidor ======");
-                System.out.println("====== (sair)- Finalizar ===================================");
+                System.out.println("====== (4) Consultar Historico de Compras ==================");
+                System.out.println("====== (5) Consultar Historico de Vendas ===================");
+                System.out.println("================= (sair)- Finalizar ========================");
                 System.out.println("============================================================");
                 System.out.print("Opção:");
                 s = Validacao.readString();
@@ -58,15 +58,15 @@ public class Fornecedor extends java.rmi.server.UnicastRemoteObject implements I
                     case "2":
                         break;
                     case "3":
+                        Fornecedor_Metodos_Auxiliares.removeProduto(servidor,fornecedor);
                         break;
                     case "4":
-                        Fornecedor_Metodos_Auxiliares.consultarHistoricoVendasServidor(servidor,fornecedor);
+                        Fornecedor_Metodos_Auxiliares.consultarHistoricoCompras(servidor,fornecedor);
                         break;
                     case "5":
-                        Fornecedor_Metodos_Auxiliares.consultarHistoricoVendasServidorTotal(servidor);
                         break;
                     case "sair":
-                        return;
+                        System.exit(0);
                 }
             }
         } catch (Exception r) {
