@@ -9,10 +9,12 @@ import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.ArrayList;
 
 public class Fornecedor extends java.rmi.server.UnicastRemoteObject implements Interface_Fornecedor_Servidor {
 
-    public String nomeFornecedor;
+    private static String nomeFornecedor;
+    private static ArrayList<String> Mensagens;
     protected Fornecedor(String _nome) throws java.rmi.RemoteException {
         super();
         nomeFornecedor = _nome;
@@ -20,7 +22,7 @@ public class Fornecedor extends java.rmi.server.UnicastRemoteObject implements I
 
     @Override
     public void printOnServidor(String s) throws RemoteException {
-        System.out.println(s);
+        Mensagens.add(s);
     }
 
     @Override
@@ -38,6 +40,7 @@ public class Fornecedor extends java.rmi.server.UnicastRemoteObject implements I
         String s;
         //Vinícius: grant.policy
         //System.setProperty("java.security.policy", "/Users/vinciusrodriguessilvacosta/IdeaProjects/Sistemas-Distribuidos-TP1/TP1/grant.policy");
+        System.setProperty("java.security.policy", "C:\\Users\\denis\\IdeaProjects\\Sistemas-Distribuidos-TP1\\TP1\\grant.policy");
         //Miguel
         //System.setProperty("java.security.policy", "/home/frias/GitHub/Sistemas-Distribuidos-TP1/TP1/grant.policy");
         //Hermenegildo: grant.policy
@@ -52,22 +55,19 @@ public class Fornecedor extends java.rmi.server.UnicastRemoteObject implements I
             servidor.subscribeFornecedor(fornecedor.nomeFornecedor, fornecedor);
             while (true) {
                 System.out.println("============================================================");
-                System.out.println("=============== Opções de Comunicação ======================");
-                System.out.println("====== (0) Comunicar Servidor ==============================");
+                System.out.println("====== Opções de Comunicação ===============================");
                 System.out.println("====== (1) Adicionar Produto ===============================");
                 System.out.println("====== (2) Adicionar Produtos (já existentes) ==============");
                 System.out.println("====== (3) Remover Produtos ================================");
                 System.out.println("====== (4) Consultar Historico de Compras ==================");
                 System.out.println("====== (5) Consultar Historico de Vendas ===================");
-                System.out.println("================= (sair)- Finalizar ========================");
+                System.out.println("====== (6) Verificar Mensagens do Servidor/Vendedor ========");
+                System.out.println("====== (sair) - Finalizar ==================================");
                 System.out.println("============================================================");
                 System.out.print("Opção:");
                 s = Validacao.readString();
                 if(s == null ) s = "Sair";
                 switch (s) {
-                    case "0":
-                        servidor.printOnFornecedor(Validacao.readString());
-                        break;
                     case "1":
                         Fornecedor_Metodos_Auxiliares.adicionarProdutoServidor(servidor,fornecedor);
                         break;
@@ -80,6 +80,10 @@ public class Fornecedor extends java.rmi.server.UnicastRemoteObject implements I
                         Fornecedor_Metodos_Auxiliares.consultarHistoricoCompras(servidor,fornecedor);
                         break;
                     case "5":
+                        Fornecedor_Metodos_Auxiliares.consultarHistoricoVendidos(servidor,fornecedor);
+                        break;
+                    case "6":
+                        Fornecedor_Metodos_Auxiliares.LerMensagens(Mensagens);
                         break;
                     case "sair":
                         System.exit(0);
@@ -89,5 +93,4 @@ public class Fornecedor extends java.rmi.server.UnicastRemoteObject implements I
             System.out.println("Exception in client" + r.getMessage());
         }
     }
-
 }
