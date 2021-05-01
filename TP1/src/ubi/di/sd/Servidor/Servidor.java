@@ -77,16 +77,6 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
             }
         }
 
-        frutos.add(new Frutos("Sardinha", 20, 2.5, 3.0, LocalDateTime.now(), 10, "Fornecedor 1"));
-        obj.add(frutos.get(0));
-        frutos.add(new Frutos("Bagri", 50, 3, 4.0, LocalDateTime.now(), 12, "Fornecedor 1"));
-        obj.add(frutos.get(1));
-        /*bebidas.add(new Bebidas("Cerveja", 100, 1.2, 1.6, LocalDateTime.now(), 24, "Fornecedor 1"));
-        obj.add(bebidas.get(0));
-        bebidas.add(new Bebidas("Vinho", 100, 1.2, 1.6, LocalDateTime.now(), 24, "Fornecedor 1"));
-        obj.add(bebidas.get(1));
-        bebidas.add(new Bebidas("Cidra", 100, 1.2, 1.6, LocalDateTime.now(), 24, "Fornecedor 1"));
-        obj.add(bebidas.get(2));*/
     }
 
     /* ================================================================ */
@@ -461,7 +451,7 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
         //System.setProperty("java.security.policy", "/home/frias/GitHub/Sistemas-Distribuidos-TP1/TP1/grant.policy");
 
         //Hermenegildo: grant.policy
-        System.setProperty("java.security.policy", "/Users/Lenovo/IdeaProjects/Sistemas-Distribuidos-TP1/TP1/grant.policy");
+        //System.setProperty("java.security.policy", "/Users/Lenovo/IdeaProjects/Sistemas-Distribuidos-TP1/TP1/grant.policy");
         System.setSecurityManager(new SecurityManager());
         try {
             LocateRegistry.createRegistry(1099);

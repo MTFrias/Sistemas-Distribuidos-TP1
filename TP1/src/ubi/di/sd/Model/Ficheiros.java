@@ -42,10 +42,10 @@ public  class Ficheiros {
         try {
             if(((ArrayList)obj).size() != 0) {
 
-                if (((ArrayList<Peixe>) obj).get(0).getClass() == Peixe.class) {
+                if (((ArrayList) obj).get(0).getClass() == Peixe.class) {
                     System.out.println("Class do tipo peixe");
 
-                    File file = new File("C:\\Users\\denis\\IdeaProjects\\Sistemas-Distribuidos-TP1\\TP1\\fPeixe.dat");
+                    File file = new File("fPeixe.dat");
                     ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(file));
                     os.writeObject(obj);
                     os.flush();
@@ -53,7 +53,7 @@ public  class Ficheiros {
 
                     System.out.println("Ficheiro para peixe guardado com sucesso!!");
 
-                } else if(((ArrayList<Carne>) obj).get(0).getClass() == Carne.class) {
+                } else if(((ArrayList) obj).get(0).getClass() == Carne.class) {
                     File file = new File("fCarne.dat");
                     ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(file));
                     os.writeObject(obj);
@@ -61,7 +61,7 @@ public  class Ficheiros {
                     os.close();
 
                     System.out.println("Ficheiro para carne guardado com sucesso!!");
-                } else if(((ArrayList<Bebidas>)obj).get(0).getClass() == Bebidas.class){
+                } else if(((ArrayList)obj).get(0).getClass() == Bebidas.class){
                     File file = new File("fBebidas.dat");
                     ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(file));
                     os.writeObject(obj);
@@ -69,7 +69,7 @@ public  class Ficheiros {
                     os.close();
 
                     System.out.println("Ficheiro para bebidas guardado com sucesso!!");
-                } else if(((ArrayList<Frutos>)obj).get(0).getClass() == Frutos.class){
+                } else if(((ArrayList)obj).get(0).getClass() == Frutos.class){
                     File file = new File("fFrutos.dat");
                     ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(file));
                     os.writeObject(obj);
@@ -77,7 +77,7 @@ public  class Ficheiros {
                     os.close();
 
                     System.out.println("Ficheiro para frutos guardado com sucesso!!");
-                }else if (((ArrayList<Limpeza>)obj).get(0).getClass() == Limpeza.class){
+                }else if (((ArrayList)obj).get(0).getClass() == Limpeza.class){
                     File file = new File("fLimpeza.dat");
                     ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(file));
                     os.writeObject(obj);
@@ -85,7 +85,7 @@ public  class Ficheiros {
                     os.close();
 
                     System.out.println("Ficheiro para limpeza guardado com sucesso!!");
-                }else if (((ArrayList<Mercearia>)obj).get(0).getClass() == Mercearia.class){
+                }else if (((ArrayList)obj).get(0).getClass() == Mercearia.class){
                     File file = new File("fMercearia.dat");
                     ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(file));
                     os.writeObject(obj);
@@ -99,7 +99,7 @@ public  class Ficheiros {
             }
 
         } catch (Exception e) {
-            e.getStackTrace();
+            System.out.println(e.getMessage());
         }
 
     }
