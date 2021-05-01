@@ -7,6 +7,7 @@ import ubi.di.sd.Servidor.Interface_Servidor_Fornecedor;
 import java.rmi.RemoteException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Fornecedor_Metodos_Auxiliares {
@@ -14,7 +15,7 @@ public class Fornecedor_Metodos_Auxiliares {
     public static String escreverNome() {
         System.out.print("Nome do produto:");
         String s = Validacao.readString();
-        if(s == null){
+        if (s == null) {
             s = "Vázio!";
         }
         return s;
@@ -32,12 +33,22 @@ public class Fornecedor_Metodos_Auxiliares {
 
     public static double escreverPrecoCompra() {
         System.out.print("Preco do produto para se comprar:");
-        return Ler.umDouble();
+        double s = Ler.umDouble();
+        do {
+            System.out.println("Preco do produto para se comprartem que ser maior que 0!");
+            s = Ler.umDouble();
+        } while (s < 0);
+        return s;
     }
 
     public static double escreverPrecoVenda() {
         System.out.print("Preço do produto para se vender:");
-        return Ler.umDouble();
+        double s = Ler.umDouble();
+        do {
+            System.out.println("Preço do produto para se vender tem que ser maior que 0!");
+            s = Ler.umDouble();
+        } while (s < 0);
+        return s;
     }
 
     public static LocalDateTime escreverValidade() {
@@ -49,7 +60,12 @@ public class Fornecedor_Metodos_Auxiliares {
 
     public static int escreverQuantidadeMinima() {
         System.out.print("Quantidade minima:");
-        return Ler.umInt();
+        int s = Ler.umInt();
+        do {
+            System.out.println("A quantidade minima tem que ser maior que 0!");
+            s = Ler.umInt();
+        } while (s < 0);
+        return s;
     }
 
 
@@ -60,7 +76,7 @@ public class Fornecedor_Metodos_Auxiliares {
         LocalDateTime v;
         while (true) {
             System.out.println("=======================================");
-            System.out.println("============== Opções =================");
+            System.out.println("====== Opções para adicionar ==========");
             System.out.println("====== (1) Adicionar Peixe ============");
             System.out.println("====== (2) Adicionar Carne ============");
             System.out.println("====== (3) Adicionar Limpeza ==========");
@@ -91,13 +107,13 @@ public class Fornecedor_Metodos_Auxiliares {
     public static void consultarHistoricoCompras(Interface_Servidor_Fornecedor servidor, Interface_Fornecedor_Servidor fornecedor) throws RemoteException {
         while (true) {
             System.out.println("======================================================");
-            System.out.println("=========== Lista de Produtos Comprados ==============");
+            System.out.println("====== Lista de Produtos Comprados ===================");
             System.out.println("====== (1) Listar por Decrescente (Preço de compra) ==");
             System.out.println("====== (2) Listar por Crescente (Preço de compra) ====");
             System.out.println("====== (3) Listar por Alfabetica (Nome) ==============");
             System.out.println("====== (4) Listar por Alfabetica (Invertido) =========");
-            System.out.println("====== (5) Listar Todos os Produtos Comprados =========");
-            System.out.println("================== (sair)- Finalizar =================");
+            System.out.println("====== (5) Listar Todos os Produtos Comprados ========");
+            System.out.println("====== (sair) - Finalizar ============================");
             System.out.println("======================================================");
             System.out.print("Opção:");
             String s = Validacao.readString();
@@ -126,12 +142,50 @@ public class Fornecedor_Metodos_Auxiliares {
         }
     }
 
+    public static void consultarHistoricoVendidos(Interface_Servidor_Fornecedor servidor, Interface_Fornecedor_Servidor fornecedor) throws RemoteException {
+        while (true) {
+            System.out.println("======================================================");
+            System.out.println("====== Lista de Produtos Comprados ===================");
+            System.out.println("====== (1) Listar por Decrescente (Preço de compra) ==");
+            System.out.println("====== (2) Listar por Crescente (Preço de compra) ====");
+            System.out.println("====== (3) Listar por Alfabetica (Nome) ==============");
+            System.out.println("====== (4) Listar por Alfabetica (Invertido) =========");
+            System.out.println("====== (5) Listar Todos os Produtos Comprados ========");
+            System.out.println("====== (sair) - Finalizar ============================");
+            System.out.println("======================================================");
+            System.out.print("Opção:");
+            String s = Validacao.readString();
+            if (s == null) s = "sair";
+            switch (s) {
+                case "1":
+                    System.out.println(servidor.consultarVendas(fornecedor, 1));
+                    break;
+                case "2":
+                    System.out.println(servidor.consultarVendas(fornecedor, 2));
+                    break;
+                case "3":
+                    System.out.println(servidor.consultarVendas(fornecedor, 3));
+                    break;
+                case "4":
+                    System.out.println(servidor.consultarVendas(fornecedor, 4));
+                    break;
+                case "5":
+                    System.out.println(servidor.consultarVendas(fornecedor, 5));
+                    break;
+                case "sair":
+                    return;
+            }
+            System.out.println("Para continuar aperte alguma tecla!");
+            s = Validacao.readString();
+        }
+    }
+
     public static void removeProduto(Interface_Servidor_Fornecedor servidor, Interface_Fornecedor_Servidor fornecedor) throws RemoteException {
         while (true) {
             System.out.println("======================================================");
             System.out.println("======== Opções de Eliminar um Porduto ===============");
             System.out.println("======= (1) Eliminar um Produto ======================");
-            System.out.println("======= (sair)- Finalizar ============================");
+            System.out.println("======= (sair) - Finalizar ===========================");
             System.out.println("======================================================");
             System.out.print("Opção:");
             String s = Validacao.readString();
@@ -145,6 +199,12 @@ public class Fornecedor_Metodos_Auxiliares {
             }
             System.out.println("Para continuar aperte alguma tecla!");
             s = Validacao.readString();
+        }
+    }
+
+    public static void LerMensagens(ArrayList<String> mensagens) {
+        for (String item : mensagens) {
+            System.out.println(item);
         }
     }
 }

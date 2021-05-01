@@ -15,6 +15,7 @@ import java.rmi.registry.Registry;
 public class Vendedor extends java.rmi.server.UnicastRemoteObject implements Interface_Vendedor_Servidor {
 
     public String nomeVendedor;
+
     protected Vendedor(String _nome) throws java.rmi.RemoteException {
         super();
         nomeVendedor = _nome;
@@ -40,19 +41,25 @@ public class Vendedor extends java.rmi.server.UnicastRemoteObject implements Int
 
     public static void main(String[] args) {
         String s;
-        String ipServer = "192.168.1.68";
+        //Vinicius Ip
+        //String ipServer = "192.168.1.68";
+
+        //Hermenegildo
+        String ipServer = "127.0.0.1";
         int portServer = 1099;
+
+
         //Vinícius
         //System.setProperty("java.security.policy", "/Users/vinciusrodriguessilvacosta/IdeaProjects/Sistemas-Distribuidos-TP1/TP1/grant.policy");
-        System.setProperty("java.security.policy", "C:\\Users\\denis\\IdeaProjects\\Sistemas-Distribuidos-TP1\\TP1\\grant.policy");
+        //System.setProperty("java.security.policy", "C:\\Users\\denis\\IdeaProjects\\Sistemas-Distribuidos-TP1\\TP1\\grant.policy");
         //Miguel
         //System.setProperty("java.security.policy", "/home/frias/GitHub/Sistemas-Distribuidos-TP1/TP1/grant.policy");
         //Hermenegildo
-        //System.setProperty("java.security.policy", "/Users/Lenovo/IdeaProjects/Sistemas-Distribuidos-TP1/TP1/grant.policy");
+        System.setProperty("java.security.policy", "/Users/Lenovo/IdeaProjects/Sistemas-Distribuidos-TP1/TP1/grant.policy");
         System.setSecurityManager(new SecurityManager());
         try {
 
-            Registry registry = LocateRegistry.getRegistry(ipServer,portServer);
+            Registry registry = LocateRegistry.getRegistry(ipServer, portServer);
             Interface_Servidor_Vendedor servidor = (Interface_Servidor_Vendedor) registry.lookup("Servidor");
             LocateRegistry.getRegistry(1099);
             Vendedor vendedor = new Vendedor("Vendedor 1");
@@ -67,7 +74,7 @@ public class Vendedor extends java.rmi.server.UnicastRemoteObject implements Int
                 System.out.println("==============================================");
                 System.out.print("Opção:");
                 s = Validacao.readString();
-                if(s == null ) s = "Sair";
+                if (s == null) s = "sair";
                 switch (s) {
                     case "0":
                         servidor.printOnVendedor(Validacao.readString());
