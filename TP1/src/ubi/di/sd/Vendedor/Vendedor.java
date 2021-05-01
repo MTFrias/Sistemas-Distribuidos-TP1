@@ -87,13 +87,16 @@ public class Vendedor extends java.rmi.server.UnicastRemoteObject implements Int
                         Vendedor_Metodos_Auxiliares.venderProdutoServidor(servidor, vendedor);
                         break;
                     case "3":
+                        Vendedor_Metodos_Auxiliares.verificarDataValidadeProdutos(servidor, vendedor);
                         break;
                     case "sair":
                         System.exit(0);
                 }
+                System.out.println("Para continuar aperte alguma tecla!");
+                s = Validacao.readString();
             }
         } catch (Exception r) {
-            System.out.println("Exception in client" + r.getMessage());
+            System.out.println("Exception in client " + r.getMessage());
         }
     }
 }

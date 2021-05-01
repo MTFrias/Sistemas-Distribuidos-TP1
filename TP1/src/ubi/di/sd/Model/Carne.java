@@ -11,6 +11,8 @@ public class Carne extends Produto implements Serializable  {
         super(_nome,_stock,_precoCompra,_precoVenda,_validade,_quantidadeMinima,_fornecedor);
 
     }
+    public Carne(){
 
+    }
 
 }

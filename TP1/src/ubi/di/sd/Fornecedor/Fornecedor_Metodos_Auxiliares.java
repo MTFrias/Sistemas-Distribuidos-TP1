@@ -13,6 +13,7 @@ import java.util.Objects;
 public class Fornecedor_Metodos_Auxiliares {
 
     public static String escreverNome() {
+        System.out.println("============================================");
         System.out.print("Nome do produto:");
         String s = Validacao.readString();
         if (s == null) {
@@ -22,30 +23,40 @@ public class Fornecedor_Metodos_Auxiliares {
     }
 
     public static int escreverStock() {
-        System.out.print("Quantos produtos para comprar:");
-        return Ler.umInt();
+        int s;
+        do {
+            System.out.println("============================================");
+            System.out.print("Quantos produtos para comprar (tem que ser maior ou iqual a 0!):");
+            s = Ler.umInt();
+        } while (s < 0);
+        return s;
     }
 
     public static int escreverId() {
-        System.out.print("ID do produto:");
-        return Ler.umInt();
+        int s;
+        do {
+            System.out.println("============================================");
+            System.out.print("ID do produto (tem que ser maior ou iqual a 0!):");
+            s = Ler.umInt();
+        } while (s < 0);
+        return s;
     }
 
     public static double escreverPrecoCompra() {
-        System.out.print("Preco do produto para se comprar:");
-        double s = Ler.umDouble();
+        double s;
         do {
-            System.out.println("Preco do produto para se comprartem que ser maior que 0!");
+            System.out.println("============================================");
+            System.out.print("Preco do produto para se comprar (tem que ser maior que 0!):");
             s = Ler.umDouble();
         } while (s < 0);
         return s;
     }
 
     public static double escreverPrecoVenda() {
-        System.out.print("Preço do produto para se vender:");
-        double s = Ler.umDouble();
+        double s;
         do {
-            System.out.println("Preço do produto para se vender tem que ser maior que 0!");
+            System.out.println("============================================");
+            System.out.print("Preço do produto para se vender (tem que ser maior que 0!):");
             s = Ler.umDouble();
         } while (s < 0);
         return s;
@@ -54,15 +65,19 @@ public class Fornecedor_Metodos_Auxiliares {
     public static LocalDateTime escreverValidade() {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDateTime now = LocalDateTime.now();
-        System.out.print("Quantos meses de validade:");
-        return LocalDateTime.now().plusMonths(Ler.umInt());
+        int s;
+        do {
+            System.out.println("============================================");
+            System.out.print("Quantos meses de validade (ter que ser maior que 0!):");
+            s = Ler.umInt();
+        } while (s < 0);
+        return LocalDateTime.now().plusMonths(s);
     }
 
     public static int escreverQuantidadeMinima() {
-        System.out.print("Quantidade minima:");
-        int s = Ler.umInt();
+        int s;
         do {
-            System.out.println("A quantidade minima tem que ser maior que 0!");
+            System.out.print("Quantidade minima (tem que ser maior que 0!):");
             s = Ler.umInt();
         } while (s < 0);
         return s;

@@ -60,6 +60,8 @@ public class Vendedor_Metodos_Auxiliares {
                 case "Sair":
                     return;
             }
+            System.out.println("Para continuar aperte alguma tecla!");
+            s = Validacao.readString();
         }
     }
 
@@ -102,7 +104,12 @@ public class Vendedor_Metodos_Auxiliares {
                 case "Sair":
                     return;
             }
+            System.out.println("Para continuar aperte alguma tecla!");
+            s = Validacao.readString();
         }
     }
 
+    public static void verificarDataValidadeProdutos(Interface_Servidor_Vendedor servidor, Vendedor vendedor) throws RemoteException {
+        System.out.println(servidor.verificarDataValidade(vendedor,servidor));
+    }
 }
