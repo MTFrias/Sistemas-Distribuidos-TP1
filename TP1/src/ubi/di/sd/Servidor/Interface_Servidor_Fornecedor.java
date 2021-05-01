@@ -18,4 +18,5 @@ public interface Interface_Servidor_Fornecedor extends java.rmi.Remote {
 
     public String removeProduto(Interface_Fornecedor_Servidor _fornecedor, int _idProduto) throws java.rmi.RemoteException;
 
+    public void ConsultarMensagens(Interface_Fornecedor_Servidor fornecedor) throws java.rmi.RemoteException;
 }

@@ -15,7 +15,7 @@ import java.util.*;
 public class Servidor extends java.rmi.server.UnicastRemoteObject implements Interface_Servidor_Vendedor, Interface_Servidor_Fornecedor {
 
 
-    private static ArrayList<Interface_Fornecedor_Servidor> fornecedores;
+    private static ArrayList<String> fornecedores;
     private static ArrayList<Bebidas> bebidas;
     private static ArrayList<Carne> carnes;
     private static ArrayList<Peixe> peixes;
@@ -24,10 +24,7 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
     private static ArrayList<Limpeza> limpezas;
     private static ArrayList<Produto> obj;
     private static ArrayList<Produto> vendas;
-
-    public static ArrayList<Interface_Fornecedor_Servidor> getFormer() {
-        return fornecedores;
-    }
+    private static ArrayList<MensagemFornecedor> mensagemFornecedors;
 
     public static ArrayList<Bebidas> getBebidas() {
         return bebidas;
@@ -69,6 +66,7 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
         frutos = new ArrayList<>();
         obj = new ArrayList<>();
         vendas = new ArrayList<>();
+        mensagemFornecedors = new ArrayList<>();
         peixes.add(new Peixe("sardinha", 20, 2, 3, LocalDateTime.now(), 10, "Fornecedor 1"));
         peixes.add(new Peixe("sardinha1", 23, 4, 3, LocalDateTime.now(), 5, "Fornecedor 1"));
         peixes.add(new Peixe("sardinha2", 20, 2, 3, LocalDateTime.now(), 6, "Fornecedor 1"));
@@ -139,7 +137,21 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
 
     public void subscribeFornecedor(String name, Interface_Fornecedor_Servidor fornecedor) throws java.rmi.RemoteException {
         System.out.println("Fornecedor Adicionado: " + name);
-        fornecedores.add(fornecedor);
+        if (fornecedores.size() > 0) {
+            System.out.println("passou");
+            for (String f : fornecedores) {
+                System.out.println();
+
+                if (f.equals(fornecedor.getNomeFornecedor())) {
+                    fornecedores.remove(f);
+                    System.out.println("Fornecedor foi removido!");
+                    fornecedores.add(fornecedor.getNomeFornecedor());
+                    System.out.println("Novo fornecedor");
+                    return;
+                }
+            }
+        }
+        fornecedores.add(fornecedor.getNomeFornecedor());
     }
 
     public String adicionarProduto(String _nome, int _stock, double _precoCompra, double _precoVenda, LocalDateTime _validade, int _quantidadeMinima, Interface_Fornecedor_Servidor _fornecedor, String pos) throws RemoteException {
@@ -411,12 +423,25 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
         return "";
     }
 
+    public void ConsultarMensagens(Interface_Fornecedor_Servidor fornecedor) throws java.rmi.RemoteException {
+        for (MensagemFornecedor m : mensagemFornecedors) {
+            if (m.getNomeForncedor().equals(fornecedor.getNomeFornecedor())) {
+                fornecedor.printOnServidor(m.getMensgem());
+            }
+        }
+    }
+
+    public void AnotarMensagen(String mensagem, String fornecedor) throws java.rmi.RemoteException {
+        // System.out.println("estou aqui " + fornecedor.getNomeFornecedor());
+        mensagemFornecedors.add(new MensagemFornecedor(mensagem, fornecedor));
+        System.out.println("Mensagem: " + mensagemFornecedors.toString());
+    }
+
     public String verificarDataValidade(Interface_Vendedor_Servidor _vendedor, Interface_Servidor_Vendedor servidor) throws java.rmi.RemoteException {
         String s = "";
         ArrayList<Produto> aux = (ArrayList<Produto>) obj.clone();
         for (Produto produto : aux) {
             if (LocalDateTime.now().isAfter(produto.getDataValidade())) {
-                System.out.println("Loop");
                 s = s + "\nValidade do produto " + produto.getNome() + " com ID " + produto.getID() + " esta vencida!";
                 VerificacaoValidade(servidor, produto);
             }
@@ -431,9 +456,10 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
         int stock = produto.getStock();
         if (quatidadeMinima <= stock) {
             String fornecedor = produto.getFornecedor();
-            for (Interface_Fornecedor_Servidor f : fornecedores) {
-                if (f.getNomeFornecedor().equals(fornecedor)) {
-                    servidor.printOnFornecedor("Stock do produto " + produto.getNome() + " com ID " + produto.getID() + " chegou na quantidade de stock minima!", f);
+            for (String f : fornecedores) {
+                if (f.equals(fornecedor)) {
+                    //servidor.printOnFornecedor("Stock do produto " + produto.getNome() + " com ID " + produto.getID() + " chegou na quantidade de stock minima!", f);
+                    servidor.AnotarMensagen("Stock do produto " + produto.getNome() + " com ID " + produto.getID() + " chegou na quantidade de stock minima!", f);
                     VerificacaoValidade(servidor, produto);
                 }
             }
@@ -445,16 +471,17 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
     public static void VerificacaoValidade(Interface_Servidor_Vendedor servidor, Produto produto) throws RemoteException {
         if (LocalDateTime.now().isAfter(produto.getDataValidade())) {
             String fornecedor = produto.getFornecedor();
-            System.out.println(getFormer()+ "  fornecedores");
-            for (Interface_Fornecedor_Servidor f : getFormer()) {
-                if (f.getNomeFornecedor().equals(fornecedor)) {
+            for (String f : fornecedores) {
+                if (f.equals(fornecedor)) {
                     //System.out.println("Validade do produto " + produto.getNome() + " com ID " + produto.getID() + " está vencida!");
-                    servidor.printOnFornecedor("Validade do produto " + produto.getNome() + " com ID " + produto.getID() + " está vencida!", f);
+                    //servidor.printOnFornecedor("Validade do produto " + produto.getNome() + " com ID " + produto.getID() + " está vencida!", f);
+                    servidor.AnotarMensagen("Validade do produto " + produto.getNome() + " com ID " + produto.getID() + " está vencida!", f);
                     removerProdutoStocks(produto);
                 }
             }
         }
     }
+
     //==================================================================================================================
     //Função responsavel por remover um produto do arraylist ===========================================================
     public static void removerProdutoStocks(Produto produto) throws RemoteException {
@@ -475,6 +502,7 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
         obj.remove(produto);
         System.out.println(produto.getNome() + " removido!");
     }
+
     //==================================================================================================================
     //Função responsavel por adicionar um produto em um arraylist ======================================================
     public static void adicionarProdutoStocks(Produto produto) throws RemoteException {
@@ -499,8 +527,8 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
     //Função main do Servidor ==========================================================================================
     public static void main(String[] args) {
         //Vinícius: grant.policy
-        //System.setProperty("java.security.policy", "/Users/vinciusrodriguessilvacosta/IdeaProjects/Sistemas-Distribuidos-TP1/TP1/grant.policy");
-        System.setProperty("java.security.policy", "C:\\Users\\denis\\IdeaProjects\\Sistemas-Distribuidos-TP1\\TP1\\grant.policy");
+        System.setProperty("java.security.policy", "/Users/vinciusrodriguessilvacosta/IdeaProjects/Sistemas-Distribuidos-TP1/TP1/grant.policy");
+        //System.setProperty("java.security.policy", "C:\\Users\\denis\\IdeaProjects\\Sistemas-Distribuidos-TP1\\TP1\\grant.policy");
 
         //System.setProperty("java.security.policy", "/Users/vinciusrodriguessilvacosta/IdeaProjects/Sistemas-Distribuidos-TP1/TP1/grant.policy");
         //Miguel

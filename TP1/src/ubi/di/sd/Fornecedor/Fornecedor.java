@@ -40,8 +40,8 @@ public class Fornecedor extends java.rmi.server.UnicastRemoteObject implements I
         int portServer = 1099;
         String s;
         //Vinícius: grant.policy
-        //System.setProperty("java.security.policy", "/Users/vinciusrodriguessilvacosta/IdeaProjects/Sistemas-Distribuidos-TP1/TP1/grant.policy");
-        System.setProperty("java.security.policy", "C:\\Users\\denis\\IdeaProjects\\Sistemas-Distribuidos-TP1\\TP1\\grant.policy");
+        System.setProperty("java.security.policy", "/Users/vinciusrodriguessilvacosta/IdeaProjects/Sistemas-Distribuidos-TP1/TP1/grant.policy");
+        //System.setProperty("java.security.policy", "C:\\Users\\denis\\IdeaProjects\\Sistemas-Distribuidos-TP1\\TP1\\grant.policy");
         //Miguel
         //System.setProperty("java.security.policy", "/home/frias/GitHub/Sistemas-Distribuidos-TP1/TP1/grant.policy");
         //Hermenegildo: grant.policy
@@ -54,6 +54,7 @@ public class Fornecedor extends java.rmi.server.UnicastRemoteObject implements I
 
             Fornecedor fornecedor = new Fornecedor("Fornecedor 1");
             servidor.subscribeFornecedor(fornecedor.nomeFornecedor, fornecedor);
+            servidor.ConsultarMensagens(fornecedor);
             while (true) {
                 System.out.println("============================================================");
                 System.out.println("====== Opções de Comunicação ===============================");

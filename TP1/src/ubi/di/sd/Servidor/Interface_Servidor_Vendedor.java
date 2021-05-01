@@ -19,5 +19,6 @@ public interface Interface_Servidor_Vendedor extends java.rmi.Remote {
     public String verificarDataValidade(Interface_Vendedor_Servidor _vendedor,Interface_Servidor_Vendedor servidor) throws java.rmi.RemoteException;
 
     public void printOnFornecedor(String s, Interface_Fornecedor_Servidor _fornecedor) throws RemoteException;
+    public void AnotarMensagen(String mensagem, String fornecedor) throws java.rmi.RemoteException ;
 
 }
