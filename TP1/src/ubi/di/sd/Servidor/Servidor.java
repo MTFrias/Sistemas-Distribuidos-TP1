@@ -288,7 +288,7 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
                  break;
         }
 
-        return "..............................................\n\n\n\n\n\n";
+        return null;
     }
 
     public String venderProduto(Interface_Vendedor_Servidor _vendedor, int _opc) throws java.rmi.RemoteException{
@@ -323,7 +323,7 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
                 break;
         }
 
-        return "...";
+        return "";
     }
 
     public static String vendInput(Interface_Vendedor_Servidor vend, int opcao) throws RemoteException {
@@ -339,7 +339,7 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
         switch (opcao) {
             case 1:
                 for (Peixe item : peixes) {
-                    if ((item.getID() == id) && (item.getStock() >= qtd)) {
+                    if ((item.getID() == id) && (item.getStock() >= qtd)){
                         flag = 1;
                         Peixe pe = (Peixe) item.Clone();
                         int v = item.getStock() - qtd;
@@ -432,7 +432,7 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
     public static void main(String[] args) {
         //Vinícius: grant.policy
         //System.setProperty("java.security.policy", "/Users/vinciusrodriguessilvacosta/IdeaProjects/Sistemas-Distribuidos-TP1/TP1/grant.policy");
-        System.setProperty("java.security.policy", "C:\\Users\\denis\\IdeaProjects\\Sistemas-Distribuidos-TP1\\TP1\\grant.policy");
+        //System.setProperty("java.security.policy", "C:\\Users\\denis\\IdeaProjects\\Sistemas-Distribuidos-TP1\\TP1\\grant.policy");
 
         //System.setProperty("java.security.policy", "/Users/vinciusrodriguessilvacosta/IdeaProjects/Sistemas-Distribuidos-TP1/TP1/grant.policy");
         //Miguel
@@ -440,7 +440,7 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
         //System.setProperty("java.security.policy", "/home/frias/GitHub/Sistemas-Distribuidos-TP1/TP1/grant.policy");
 
         //Hermenegildo: grant.policy
-        //System.setProperty("java.security.policy", "/Users/Lenovo/IdeaProjects/Sistemas-Distribuidos-TP1/TP1/grant.policy");
+        System.setProperty("java.security.policy", "/Users/Lenovo/IdeaProjects/Sistemas-Distribuidos-TP1/TP1/grant.policy");
         System.setSecurityManager(new SecurityManager());
         try {
             LocateRegistry.createRegistry(1099);
