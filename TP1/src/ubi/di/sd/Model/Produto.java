@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 
-public class Produto implements Serializable {
+public class Produto implements Serializable,Cloneable {
 
     private String nome;
     private int stock;
@@ -39,19 +39,18 @@ public class Produto implements Serializable {
         this.fornecedor = _fornecedor;
     }
 
-    @Override
     public String toString() {
         return
                 "\n========= Produto ========" +
-                        "\nNome do Produto: " + nome + " =======" +
-                        "\nStock: " + stock + " =======" +
-                        "\nPreco de Compra: " + precoCompra +" =======" +
-                        "\nPreco de Venda: " + precoVenda +" =======" +
-                        "\nValidade: " + dataValidade +" =======" +
-                        "\nData de Compra: " + dataCompra +" =======" +
-                        "\nQuantidade Minima: " + quantidadeMinima +" =======" +
-                        "\nID: " + ID +" =======" +
-                        "\nFornecedor: " + fornecedor + " =======";
+                "\nNome do Produto: " + nome +
+                "\nStock: " + stock +
+                "\nPreco de Compra: " + precoCompra +
+                "\nPreco de Venda: " + precoVenda +
+                "\nValidade: " + dataValidade +
+                "\nData de Compra: " + dataCompra +
+                "\nQuantidade Minima: " + quantidadeMinima +
+                "\nID: " + ID +
+                "\nFornecedor: " + fornecedor ;
     }
 
     public String getFornecedor() {
@@ -118,4 +117,29 @@ public class Produto implements Serializable {
         Produto.numProduct = numProduct;
     }
 
+    public LocalDateTime getDataValidade() {
+        return dataValidade;
+    }
+
+    public void setDataValidade(LocalDateTime dataValidade) {
+        this.dataValidade = dataValidade;
+    }
+
+    public LocalDateTime getDataCompra() {
+        return dataCompra;
+    }
+
+    public void setDataCompra(LocalDateTime dataCompra) {
+        this.dataCompra = dataCompra;
+    }
+
+    public Object Clone () {
+        try {
+            return this.clone();
+        }
+        catch (CloneNotSupportedException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
 }
