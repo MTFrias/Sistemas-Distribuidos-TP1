@@ -42,29 +42,29 @@ public class Vendedor extends java.rmi.server.UnicastRemoteObject implements Int
         String s;
         String ipServer = "192.168.1.68";
         int portServer = 1099;
-        //Vinícius: grant.policy
+        //Vinícius
         //System.setProperty("java.security.policy", "/Users/vinciusrodriguessilvacosta/IdeaProjects/Sistemas-Distribuidos-TP1/TP1/grant.policy");
+        System.setProperty("java.security.policy", "C:\\Users\\denis\\IdeaProjects\\Sistemas-Distribuidos-TP1\\TP1\\grant.policy");
         //Miguel
         //System.setProperty("java.security.policy", "/home/frias/GitHub/Sistemas-Distribuidos-TP1/TP1/grant.policy");
-
-        //Hermenegildo: grant.policy
+        //Hermenegildo
         //System.setProperty("java.security.policy", "/Users/Lenovo/IdeaProjects/Sistemas-Distribuidos-TP1/TP1/grant.policy");
         System.setSecurityManager(new SecurityManager());
         try {
+
             Registry registry = LocateRegistry.getRegistry(ipServer,portServer);
             Interface_Servidor_Vendedor servidor = (Interface_Servidor_Vendedor) registry.lookup("Servidor");
             LocateRegistry.getRegistry(1099);
-
             Vendedor vendedor = new Vendedor("Vendedor 1");
             servidor.subscribeVendedor(vendedor.nomeVendedor, vendedor);
             while (true) {
-                System.out.println("============================================================");
-                System.out.println("=============== Opções de Comunicação ======================");
-                System.out.println("====== (0) Comunicar Servidor ==============================");
-                System.out.println("====== (1) Consultar Produto ===============================");
-                System.out.println("====== (2) Vender Produto ==================================");
-                System.out.println("=======(sair)- Finalizar ===================================");
-                System.out.println("============================================================");
+                System.out.println("==============================================");
+                System.out.println("====== Opções de Comunicação =================");
+                System.out.println("====== (0) Comunicar Servidor ================");
+                System.out.println("====== (1) Consultar Produto =================");
+                System.out.println("====== (2) Vender Produto ====================");
+                System.out.println("=======(sair)- Finalizar =====================");
+                System.out.println("==============================================");
                 System.out.print("Opção:");
                 s = Validacao.readString();
                 if(s == null ) s = "Sair";
@@ -86,7 +86,4 @@ public class Vendedor extends java.rmi.server.UnicastRemoteObject implements Int
             System.out.println("Exception in client" + r.getMessage());
         }
     }
-
-
-
 }
