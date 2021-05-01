@@ -51,11 +51,11 @@ public class Vendedor extends java.rmi.server.UnicastRemoteObject implements Int
 
         //Vinícius
         //System.setProperty("java.security.policy", "/Users/vinciusrodriguessilvacosta/IdeaProjects/Sistemas-Distribuidos-TP1/TP1/grant.policy");
-        //System.setProperty("java.security.policy", "C:\\Users\\denis\\IdeaProjects\\Sistemas-Distribuidos-TP1\\TP1\\grant.policy");
+        System.setProperty("java.security.policy", "C:\\Users\\denis\\IdeaProjects\\Sistemas-Distribuidos-TP1\\TP1\\grant.policy");
         //Miguel
         //System.setProperty("java.security.policy", "/home/frias/GitHub/Sistemas-Distribuidos-TP1/TP1/grant.policy");
         //Hermenegildo
-        System.setProperty("java.security.policy", "/Users/Lenovo/IdeaProjects/Sistemas-Distribuidos-TP1/TP1/grant.policy");
+        //System.setProperty("java.security.policy", "/Users/Lenovo/IdeaProjects/Sistemas-Distribuidos-TP1/TP1/grant.policy");
         System.setSecurityManager(new SecurityManager());
         try {
 
@@ -70,6 +70,7 @@ public class Vendedor extends java.rmi.server.UnicastRemoteObject implements Int
                 System.out.println("====== (0) Comunicar Servidor ================");
                 System.out.println("====== (1) Consultar Produto =================");
                 System.out.println("====== (2) Vender Produto ====================");
+                System.out.println("====== (3) Verificar Validade dos Produtos ===");
                 System.out.println("=======(sair)- Finalizar =====================");
                 System.out.println("==============================================");
                 System.out.print("Opção:");
@@ -84,6 +85,8 @@ public class Vendedor extends java.rmi.server.UnicastRemoteObject implements Int
                         break;
                     case "2":
                         Vendedor_Metodos_Auxiliares.venderProdutoServidor(servidor, vendedor);
+                        break;
+                    case "3":
                         break;
                     case "sair":
                         System.exit(0);

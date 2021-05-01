@@ -4,6 +4,7 @@ import ubi.di.sd.Fornecedor.Interface_Fornecedor_Servidor;
 import ubi.di.sd.Model.Validacao;
 import ubi.di.sd.Servidor.Interface_Servidor_Fornecedor;
 import ubi.di.sd.Servidor.Interface_Servidor_Vendedor;
+import ubi.di.sd.Servidor.Servidor;
 
 import java.rmi.RemoteException;
 import java.time.LocalDateTime;
@@ -81,22 +82,22 @@ public class Vendedor_Metodos_Auxiliares {
             if(s == null) s = "sair";
             switch (s) {
                 case "1":
-                    opcaoVendas(servidor,vendedor, 1);
+                    System.out.println(servidor.venderProduto(vendedor, 1,servidor));
                     break;
                 case "2":
-                    opcaoVendas(servidor,vendedor, 2);
+                    System.out.println(servidor.venderProduto(vendedor, 2,servidor));
                     break;
                 case "3":
-                    opcaoVendas(servidor,vendedor, 3);
+                    System.out.println(servidor.venderProduto(vendedor, 3,servidor));
                     break;
                 case "4":
-                    opcaoVendas(servidor,vendedor, 4);
+                    System.out.println(servidor.venderProduto(vendedor, 4,servidor));
                     break;
                 case "5":
-                    opcaoVendas(servidor,vendedor, 5);
+                    System.out.println(servidor.venderProduto(vendedor, 5,servidor));
                     break;
                 case "6":
-                    opcaoVendas(servidor,vendedor, 6);
+                    System.out.println(servidor.venderProduto(vendedor, 6,servidor));
                     break;
                 case "Sair":
                     return;
@@ -104,8 +105,4 @@ public class Vendedor_Metodos_Auxiliares {
         }
     }
 
-
-    public static void opcaoVendas(Interface_Servidor_Vendedor servidor, Interface_Vendedor_Servidor vendedor, int opc) throws RemoteException {
-        System.out.println(servidor.venderProduto(vendedor, opc));
-    }
 }
