@@ -54,18 +54,65 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
         return obj;
     }
 
+    public static ArrayList<Produto> getVendas() {
+        return vendas;
+    }
+
     public Servidor() throws java.rmi.RemoteException {
         super();
 
         fornecedores = new ArrayList<>();
-        bebidas = new ArrayList<>();
-        carnes = new ArrayList<>();
-        peixes = new ArrayList<>();
-        mercearias = new ArrayList<>();
-        limpezas = new ArrayList<>();
-        frutos = new ArrayList<>();
-        obj = new ArrayList<>();
-        vendas = new ArrayList<>();
+        
+
+        if(Ficheiros.CarregarBebidas() != null){
+
+            bebidas = Ficheiros.CarregarBebidas();
+        }else{
+            bebidas = new ArrayList<>();
+        }
+
+        if(Ficheiros.CarregarCarne() != null){
+            carnes = Ficheiros.CarregarCarne();
+        }else{
+            carnes = new ArrayList<>();
+        }
+
+        if(Ficheiros.CarregarPeixe() != null){
+            peixes = Ficheiros.CarregarPeixe();
+        }else{
+            peixes = new ArrayList<>();
+        }
+
+        if(Ficheiros.CarregarMercearia() != null){
+            mercearias = Ficheiros.CarregarMercearia();
+        }else{
+            peixes = new ArrayList<>();
+        }
+
+        if(Ficheiros.CarregarLimpeza() != null){
+            limpezas = Ficheiros.CarregarLimpeza();
+        } else {
+            limpezas = new ArrayList<>();
+        }
+
+        if (Ficheiros.CarregarFrutos() != null){
+            frutos = Ficheiros.CarregarFrutos();
+        }else{
+            frutos = new ArrayList<>();
+        }
+
+        if(Ficheiros.CarregarHistoricoVendas() != null){
+            vendas = Ficheiros.CarregarHistoricoVendas();
+        }else {
+            vendas = new ArrayList<>();
+        }
+
+
+        //Este Array não precisa de if porque em ultima instancia esta função retorna um array vazio no caso de não haver nada nos ficheiros
+        obj = Ficheiros.CarregarTodosProdutos();
+
+
+
         mensagemFornecedors = new ArrayList<>();
         peixes.add(new Peixe("sardinha", 20, 2, 3, LocalDateTime.now(), 10, "Fornecedor 1"));
         peixes.add(new Peixe("sardinha1", 23, 4, 3, LocalDateTime.now(), 5, "Fornecedor 1"));
@@ -527,13 +574,13 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
     //Função main do Servidor ==========================================================================================
     public static void main(String[] args) {
         //Vinícius: grant.policy
-        System.setProperty("java.security.policy", "/Users/vinciusrodriguessilvacosta/IdeaProjects/Sistemas-Distribuidos-TP1/TP1/grant.policy");
+       // System.setProperty("java.security.policy", "/Users/vinciusrodriguessilvacosta/IdeaProjects/Sistemas-Distribuidos-TP1/TP1/grant.policy");
         //System.setProperty("java.security.policy", "C:\\Users\\denis\\IdeaProjects\\Sistemas-Distribuidos-TP1\\TP1\\grant.policy");
 
         //System.setProperty("java.security.policy", "/Users/vinciusrodriguessilvacosta/IdeaProjects/Sistemas-Distribuidos-TP1/TP1/grant.policy");
         //Miguel
         // System.setProperty("java.security.policy", "->Path do seu policy<-");
-        //System.setProperty("java.security.policy", "/home/frias/GitHub/Sistemas-Distribuidos-TP1/TP1/grant.policy");
+        System.setProperty("java.security.policy", "/home/frias/GitHub/Sistemas-Distribuidos-TP1/TP1/grant.policy");
 
         //Hermenegildo: grant.policy
         //System.setProperty("java.security.policy", "/Users/Lenovo/IdeaProjects/Sistemas-Distribuidos-TP1/TP1/grant.policy");
@@ -565,6 +612,7 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
                         Ficheiros.GuardaInformacao(Servidor.getLimpezas());
                         Ficheiros.GuardaInformacao(Servidor.getMercearias());
                         Ficheiros.GuardaInformacao(Servidor.getPeixes());
+                        Ficheiros.GuardarHistoricoVendas(Servidor.getVendas());
                         System.exit(0);
                 }
             }
