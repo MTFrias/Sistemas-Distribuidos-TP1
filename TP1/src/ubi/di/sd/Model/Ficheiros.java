@@ -9,25 +9,28 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Vector;
 
-public class Ficheiros {
+public  class Ficheiros {
+
+
+
 
 
     public static void GuardaInformacao(Object obj) {
         try {
-            if (((ArrayList) obj).size() != 0) {
+            if(((ArrayList)obj).size() != 0) {
 
                 if (((ArrayList) obj).get(0).getClass() == Peixe.class) {
                     System.out.println("Class do tipo peixe");
 
                     File file = new File("fPeixe.dat");
                     ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(file));
-                    os.writeObject((ArrayList<Peixe>)obj);
+                    os.writeObject(obj);
                     os.flush();
                     os.close();
 
                     System.out.println("Ficheiro para peixe guardado com sucesso!!");
 
-                } else if (((ArrayList) obj).get(0).getClass() == Carne.class) {
+                } else if(((ArrayList) obj).get(0).getClass() == Carne.class) {
                     File file = new File("fCarne.dat");
                     ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(file));
                     os.writeObject(obj);
@@ -35,7 +38,7 @@ public class Ficheiros {
                     os.close();
 
                     System.out.println("Ficheiro para carne guardado com sucesso!!");
-                } else if (((ArrayList) obj).get(0).getClass() == Bebidas.class) {
+                } else if(((ArrayList)obj).get(0).getClass() == Bebidas.class){
                     File file = new File("fBebidas.dat");
                     ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(file));
                     os.writeObject(obj);
@@ -43,7 +46,7 @@ public class Ficheiros {
                     os.close();
 
                     System.out.println("Ficheiro para bebidas guardado com sucesso!!");
-                } else if (((ArrayList) obj).get(0).getClass() == Frutos.class) {
+                } else if(((ArrayList)obj).get(0).getClass() == Frutos.class){
                     File file = new File("fFrutos.dat");
                     ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(file));
                     os.writeObject(obj);
@@ -51,7 +54,7 @@ public class Ficheiros {
                     os.close();
 
                     System.out.println("Ficheiro para frutos guardado com sucesso!!");
-                } else if (((ArrayList) obj).get(0).getClass() == Limpeza.class) {
+                }else if (((ArrayList)obj).get(0).getClass() == Limpeza.class){
                     File file = new File("fLimpeza.dat");
                     ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(file));
                     os.writeObject(obj);
@@ -59,7 +62,7 @@ public class Ficheiros {
                     os.close();
 
                     System.out.println("Ficheiro para limpeza guardado com sucesso!!");
-                } else if (((ArrayList) obj).get(0).getClass() == Mercearia.class) {
+                }else if (((ArrayList)obj).get(0).getClass() == Mercearia.class){
                     File file = new File("fMercearia.dat");
                     ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(file));
                     os.writeObject(obj);
@@ -68,7 +71,7 @@ public class Ficheiros {
 
                     System.out.println("Ficheiro para mercearia guardado com sucesso!!");
                 }
-            } else {
+            }else {
                 System.out.println("O Array encontra-se vazio!");
             }
 
@@ -79,21 +82,21 @@ public class Ficheiros {
     }
 
 
-    public static ArrayList<Produto> CarregarTodosProdutos() {
+
+    public static ArrayList<Produto> CarregarTodosProdutos(){
 
         ArrayList<Produto> obj = new ArrayList<>();
 
         //Carregar Peixe
-        if (CarregarPeixe() != null) {
+        if(CarregarPeixe() != null){
             ArrayList<Peixe> px = CarregarPeixe();
             for (Peixe item : px) {
                 obj.add(item);
-                System.out.println(item.getNome());
             }
         }
 
         //Carregar Carne
-        if (CarregarCarne() != null) {
+        if(CarregarCarne() != null){
             ArrayList<Carne> px = CarregarCarne();
             for (Carne item : px) {
                 obj.add(item);
@@ -101,7 +104,7 @@ public class Ficheiros {
         }
 
         //Carregar Bebidas
-        if (CarregarBebidas() != null) {
+        if(CarregarBebidas() != null){
             ArrayList<Bebidas> px = CarregarBebidas();
             for (Bebidas item : px) {
                 obj.add(item);
@@ -109,7 +112,7 @@ public class Ficheiros {
         }
 
         //Carregar Fruta
-        if (CarregarFrutos() != null) {
+        if(CarregarFrutos() != null){
             ArrayList<Frutos> px = CarregarFrutos();
             for (Frutos item : px) {
                 obj.add(item);
@@ -118,7 +121,7 @@ public class Ficheiros {
 
 
         //Carregar Limpeza
-        if (CarregarLimpeza() != null) {
+        if(CarregarLimpeza() != null){
             ArrayList<Limpeza> px = CarregarLimpeza();
             for (Limpeza item : px) {
                 obj.add(item);
@@ -126,7 +129,7 @@ public class Ficheiros {
         }
 
         //Carregar Mercearia
-        if (CarregarMercearia() != null) {
+        if(CarregarMercearia() != null){
             ArrayList<Mercearia> px = CarregarMercearia();
             for (Mercearia item : px) {
                 obj.add(item);
@@ -137,7 +140,7 @@ public class Ficheiros {
     }
 
     //Guardar num ficheiro o historico de vendas do tipo Produto
-    public static void GuardarHistoricoVendas(ArrayList<Produto> lst) {
+    public static void GuardarHistoricoVendas(ArrayList<Produto> lst){
 
         try {
             File file = new File("fvendas.dat");
@@ -147,7 +150,7 @@ public class Ficheiros {
             os.close();
 
             System.out.println("Ficheiro para historico de vendas guardado com sucesso!!");
-        } catch (Exception e) {
+        } catch (Exception e){
 
             System.out.println(e.getMessage());
         }
@@ -211,7 +214,6 @@ public class Ficheiros {
             return null;
         }
     }
-
     public static ArrayList<Bebidas> CarregarBebidas() {
         ArrayList<Bebidas> vBebidas;
 
@@ -230,7 +232,6 @@ public class Ficheiros {
             return null;
         }
     }
-
     public static ArrayList<Frutos> CarregarFrutos() {
         ArrayList<Frutos> vFrutos;
 
@@ -248,7 +249,6 @@ public class Ficheiros {
             return null;
         }
     }
-
     public static ArrayList<Limpeza> CarregarLimpeza() {
         ArrayList<Limpeza> vLimpeza;
 
@@ -266,7 +266,6 @@ public class Ficheiros {
             return null;
         }
     }
-
     public static ArrayList<Mercearia> CarregarMercearia() {
         ArrayList<Mercearia> vMercearia;
 
