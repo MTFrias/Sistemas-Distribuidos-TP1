@@ -106,6 +106,7 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
 
         //Este Array não precisa de if porque em ultima instancia esta função retorna um array vazio no caso de não haver nada nos ficheiros
         obj = Ficheiros.CarregarTodosProdutos();
+
         mensagemFornecedors = new ArrayList<>();
     }
 
@@ -664,14 +665,14 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
     public static void main(String[] args) {
         //Vinícius: grant.policy
         //System.setProperty("java.security.policy", "/Users/vinciusrodriguessilvacosta/IdeaProjects/Sistemas-Distribuidos-TP1/TP1/grant.policy");
-        System.setProperty("java.security.policy", "C:\\Users\\denis\\IdeaProjects\\Sistemas-Distribuidos-TP1\\TP1\\grant.policy");
+        //System.setProperty("java.security.policy", "C:\\Users\\denis\\IdeaProjects\\Sistemas-Distribuidos-TP1\\TP1\\grant.policy");
         //System.setProperty("java.security.policy", "/Users/vinciusrodriguessilvacosta/IdeaProjects/Sistemas-Distribuidos-TP1/TP1/grant.policy");
         //System.setProperty("java.security.policy", "C:\\Users\\denis\\IdeaProjects\\Sistemas-Distribuidos-TP1\\TP1\\grant.policy");
 
         //System.setProperty("java.security.policy", "/Users/vinciusrodriguessilvacosta/IdeaProjects/Sistemas-Distribuidos-TP1/TP1/grant.policy");
         //Miguel
         // System.setProperty("java.security.policy", "->Path do seu policy<-");
-        //System.setProperty("java.security.policy", "/home/frias/GitHub/Sistemas-Distribuidos-TP1/TP1/grant.policy");
+        System.setProperty("java.security.policy", "/home/frias/GitHub/Sistemas-Distribuidos-TP1/TP1/grant.policy");
 
         //Hermenegildo: grant.policy
         //System.setProperty("java.security.policy", "/Users/Lenovo/IdeaProjects/Sistemas-Distribuidos-TP1/TP1/grant.policy");
@@ -682,6 +683,7 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
             Naming.rebind("Servidor", h);
             System.out.println("Servidor ativado");
             String s;
+
             while (true) {
                 System.out.println("============================================");
                 System.out.println("======= Opções de Comunicação ==============");
@@ -696,12 +698,12 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
                         Servidor.verificarMensagensServidor();
                         break;
                     case "sair":
-                        Ficheiros.GuardaInformacao(Servidor.getCarnes());
-                        Ficheiros.GuardaInformacao(Servidor.getBebidas());
-                        Ficheiros.GuardaInformacao(Servidor.getFrutos());
-                        Ficheiros.GuardaInformacao(Servidor.getLimpezas());
-                        Ficheiros.GuardaInformacao(Servidor.getMercearias());
-                        Ficheiros.GuardaInformacao(Servidor.getPeixes());
+                        Ficheiros.GuardarFcarne(Servidor.getCarnes());
+                        Ficheiros.GuardarFbebidas(Servidor.getBebidas());
+                        Ficheiros.GuardarFfrutos(Servidor.getFrutos());
+                        Ficheiros.GuardarFlimpeza(Servidor.getLimpezas());
+                        Ficheiros.GuardarFMercearia(Servidor.getMercearias());
+                        Ficheiros.GuardarFpeixe(Servidor.getPeixes());
                         Ficheiros.GuardarHistoricoVendas(Servidor.getVendas());
                         System.exit(0);
                 }
