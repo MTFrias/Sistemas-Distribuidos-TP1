@@ -32,11 +32,13 @@ public class Vendedor extends java.rmi.server.UnicastRemoteObject implements Int
         return nomeVendedor;
     }
 
+    //Método que permite receber input do usuário
     @Override
     public int lerNoVendedor() {
-        int i;
+        int i, x;
         i = Ler.Ler.umInt();
-        return i;
+        x = Math.abs(i);
+        return x;
     }
 
     public static void main(String[] args) {
@@ -48,14 +50,14 @@ public class Vendedor extends java.rmi.server.UnicastRemoteObject implements Int
         String ipServer = "127.0.0.1";
         int portServer = 1099;
 
-
         //Vinícius
         //System.setProperty("java.security.policy", "/Users/vinciusrodriguessilvacosta/IdeaProjects/Sistemas-Distribuidos-TP1/TP1/grant.policy");
         //System.setProperty("java.security.policy", "C:\\Users\\denis\\IdeaProjects\\Sistemas-Distribuidos-TP1\\TP1\\grant.policy");
+
         //Miguel
         System.setProperty("java.security.policy", "/home/frias/GitHub/Sistemas-Distribuidos-TP1/TP1/grant.policy");
         //Hermenegildo
-        //System.setProperty("java.security.policy", "/Users/Lenovo/IdeaProjects/Sistemas-Distribuidos-TP1/TP1/grant.policy");
+        System.setProperty("java.security.policy", "/Users/Lenovo/IdeaProjects/Sistemas-Distribuidos-TP1/TP1/grant.policy");
         System.setSecurityManager(new SecurityManager());
         try {
 
@@ -64,6 +66,8 @@ public class Vendedor extends java.rmi.server.UnicastRemoteObject implements Int
             LocateRegistry.getRegistry(1099);
             Vendedor vendedor = new Vendedor("Vendedor 1");
             servidor.subscribeVendedor(vendedor.nomeVendedor, vendedor);
+
+            //Menu principal para o vendedor, com as opções de operações que o mesmo pode fazer
             while (true) {
                 System.out.println("==============================================");
                 System.out.println("====== Opções de Comunicação =================");
@@ -71,6 +75,7 @@ public class Vendedor extends java.rmi.server.UnicastRemoteObject implements Int
                 System.out.println("====== (1) Consultar Produto =================");
                 System.out.println("====== (2) Vender Produto ====================");
                 System.out.println("====== (3) Verificar Validade dos Produtos ===");
+                System.out.println("====== (4) Consultar Historico de Vendas =====");
                 System.out.println("=======(sair)- Finalizar =====================");
                 System.out.println("==============================================");
                 System.out.print("Opção:");
@@ -88,6 +93,9 @@ public class Vendedor extends java.rmi.server.UnicastRemoteObject implements Int
                         break;
                     case "3":
                         Vendedor_Metodos_Auxiliares.verificarDataValidadeProdutos(servidor, vendedor);
+                        break;
+                    case "4":
+                        Vendedor_Metodos_Auxiliares.consultarHistoricoVendidos(servidor, vendedor);
                         break;
                     case "sair":
                         System.exit(0);
