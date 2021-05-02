@@ -21,16 +21,20 @@ public class Fornecedor extends java.rmi.server.UnicastRemoteObject implements I
         Mensagens = new ArrayList<String>();
     }
 
+    //==================================================================================================================
+    //Função responsável por adicionar uma mensagens do servidor para o fornecedor =====================================
     @Override
     public void printOnServidor(String s) throws RemoteException {
         Mensagens.add(s);
     }
-
+    //==================================================================================================================
+    //Função responsável por pegar o nome do fornecedor ================================================================
     @Override
     public String getNomeFornecedor() throws RemoteException {
         return nomeFornecedor;
     }
-
+    //==================================================================================================================
+    //Função main do fornecedor ========================================================================================
     public static void main(String[] args) {
         //Vinicius Ip
         //String ipServer = "192.168.1.68";
@@ -40,8 +44,8 @@ public class Fornecedor extends java.rmi.server.UnicastRemoteObject implements I
         int portServer = 1099;
         String s;
         //Vinícius: grant.policy
-        System.setProperty("java.security.policy", "/Users/vinciusrodriguessilvacosta/IdeaProjects/Sistemas-Distribuidos-TP1/TP1/grant.policy");
-        //System.setProperty("java.security.policy", "C:\\Users\\denis\\IdeaProjects\\Sistemas-Distribuidos-TP1\\TP1\\grant.policy");
+       // System.setProperty("java.security.policy", "/Users/vinciusrodriguessilvacosta/IdeaProjects/Sistemas-Distribuidos-TP1/TP1/grant.policy");
+        System.setProperty("java.security.policy", "C:\\Users\\denis\\IdeaProjects\\Sistemas-Distribuidos-TP1\\TP1\\grant.policy");
         //Miguel
         //System.setProperty("java.security.policy", "/home/frias/GitHub/Sistemas-Distribuidos-TP1/TP1/grant.policy");
         //Hermenegildo: grant.policy
@@ -53,17 +57,15 @@ public class Fornecedor extends java.rmi.server.UnicastRemoteObject implements I
             LocateRegistry.getRegistry(1099);
 
             Fornecedor fornecedor = new Fornecedor("Fornecedor 1");
-            servidor.subscribeFornecedor(fornecedor.nomeFornecedor, fornecedor);
-            servidor.ConsultarMensagens(fornecedor);
+            servidor.subscribeFornecedor(fornecedor.getNomeFornecedor(), fornecedor);
             while (true) {
                 System.out.println("============================================================");
                 System.out.println("====== Opções de Comunicação ===============================");
                 System.out.println("====== (1) Adicionar Produto ===============================");
-                System.out.println("====== (2) Adicionar Produtos (já existentes) ==============");
-                System.out.println("====== (3) Remover Produtos ================================");
-                System.out.println("====== (4) Consultar Historico de Compras ==================");
-                System.out.println("====== (5) Consultar Historico de Vendas ===================");
-                System.out.println("====== (6) Verificar Mensagens do Servidor/Vendedor ========");
+                System.out.println("====== (2) Remover Produtos ================================");
+                System.out.println("====== (3) Consultar Historico de Compras ==================");
+                System.out.println("====== (4) Consultar Historico de Vendas ===================");
+                System.out.println("====== (5) Verificar Mensagens do Servidor/Vendedor ========");
                 System.out.println("====== (sair) - Finalizar ==================================");
                 System.out.println("============================================================");
                 System.out.print("Opção:");
@@ -74,18 +76,16 @@ public class Fornecedor extends java.rmi.server.UnicastRemoteObject implements I
                         Fornecedor_Metodos_Auxiliares.adicionarProdutoServidor(servidor,fornecedor);
                         break;
                     case "2":
-                        break;
-                    case "3":
                         Fornecedor_Metodos_Auxiliares.removeProduto(servidor,fornecedor);
                         break;
-                    case "4":
+                    case "3":
                         Fornecedor_Metodos_Auxiliares.consultarHistoricoCompras(servidor,fornecedor);
                         break;
-                    case "5":
+                    case "4":
                         Fornecedor_Metodos_Auxiliares.consultarHistoricoVendidos(servidor,fornecedor);
                         break;
-                    case "6":
-                        Fornecedor_Metodos_Auxiliares.LerMensagens(Mensagens);
+                    case "5":
+                        Fornecedor_Metodos_Auxiliares.LerMensagens(servidor,Mensagens,fornecedor);
                         break;
                     case "sair":
                         System.exit(0);
