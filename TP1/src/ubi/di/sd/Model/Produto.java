@@ -53,6 +53,16 @@ public class Produto implements Serializable,Cloneable {
                 "\nFornecedor: " + fornecedor ;
     }
 
+    public String printProduto() {
+        return
+                "\n========= Produto ========" +
+                        "\nID: " + ID +
+                        "\nNome do Produto: " + nome +
+                        "\nStock: " + stock +
+                        "\nPreco de Venda: " + precoVenda +
+                        "\nValidade: " + dataValidade;
+    }
+
     public String getFornecedor() {
         return fornecedor;
     }
