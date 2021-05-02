@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 
-public class Produto implements Serializable,Cloneable {
+public class Produto implements Serializable, Cloneable {
 
     private String nome;
     private int stock;
@@ -42,15 +42,14 @@ public class Produto implements Serializable,Cloneable {
     public String toString() {
         return
                 "\n========= Produto ========" +
-                "\nNome do Produto: " + nome +
-                "\nStock: " + stock +
-                "\nPreco de Compra: " + precoCompra +
-                "\nPreco de Venda: " + precoVenda +
-                "\nValidade: " + dataValidade +
-                "\nData de Compra: " + dataCompra +
-                "\nQuantidade Minima: " + quantidadeMinima +
-                "\nID: " + ID +
-                "\nFornecedor: " + fornecedor ;
+                        "\nNome do Produto: " + nome +
+                        "\nStock: " + stock +
+                        "\nPreco de Venda: " + precoVenda +
+                        "\nValidade: " + dataValidade +
+                        "\nData de Compra: " + dataCompra +
+                        "\nQuantidade Minima: " + quantidadeMinima +
+                        "\nID do produto: " + ID
+                        + "\n===============================";
     }
 
     public String printProduto() {
@@ -143,11 +142,10 @@ public class Produto implements Serializable,Cloneable {
         this.dataCompra = dataCompra;
     }
 
-    public Object Clone () {
+    public Object Clone() {
         try {
             return this.clone();
-        }
-        catch (CloneNotSupportedException ex) {
+        } catch (CloneNotSupportedException ex) {
             ex.printStackTrace();
             return null;
         }
