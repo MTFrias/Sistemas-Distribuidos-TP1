@@ -1,11 +1,8 @@
 package ubi.di.sd.Fornecedor;
 
-import ubi.di.sd.Model.Ficheiros;
 import ubi.di.sd.Model.Validacao;
 import ubi.di.sd.Servidor.Interface_Servidor_Fornecedor;
 
-import javax.swing.text.html.HTMLDocument;
-import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -44,8 +41,8 @@ public class Fornecedor extends java.rmi.server.UnicastRemoteObject implements I
         int portServer = 1099;
         String s;
         //Vinícius: grant.policy
-       // System.setProperty("java.security.policy", "/Users/vinciusrodriguessilvacosta/IdeaProjects/Sistemas-Distribuidos-TP1/TP1/grant.policy");
-        //System.setProperty("java.security.policy", "C:\\Users\\denis\\IdeaProjects\\Sistemas-Distribuidos-TP1\\TP1\\grant.policy");
+        //System.setProperty("java.security.policy", "/Users/vinciusrodriguessilvacosta/IdeaProjects/Sistemas-Distribuidos-TP1/TP1/grant.policy");
+        System.setProperty("java.security.policy", "C:\\Users\\denis\\IdeaProjects\\Sistemas-Distribuidos-TP1\\TP1\\grant.policy");
         //Miguel
         //System.setProperty("java.security.policy", "/home/frias/GitHub/Sistemas-Distribuidos-TP1/TP1/grant.policy");
         //Hermenegildo: grant.policy

@@ -42,6 +42,7 @@ public class Fornecedor_Metodos_Auxiliares {
             System.out.print("ID do produto (tem que ser maior ou iqual a 0!):");
             s = Ler.umInt();
         } while (s < 0);
+        System.out.println("ola " + s);
         return s;
     }
     //==================================================================================================================
@@ -217,7 +218,12 @@ public class Fornecedor_Metodos_Auxiliares {
             switch (s) {
                 case "1":
                     System.out.println(servidor.consultarCompras(fornecedor, 1));
-                    System.out.println(servidor.removeProduto(fornecedor, escreverId()));
+                    if(servidor.consultarStocks()){
+                        System.out.println(servidor.removeProduto(fornecedor, escreverId()));
+                        break;
+                    }
+                    System.out.println("Stock Vázio!");
+                    break;
                 case "sair":
                     return;
             }
@@ -236,5 +242,7 @@ public class Fornecedor_Metodos_Auxiliares {
         } else {
             System.out.println("Nenhuma mensagem direcionada ao " + fornecedor.getNomeFornecedor() + "!");
         }
+        System.out.println("Para continuar aperte alguma tecla!");
+        String s = Validacao.readString();
     }
 }

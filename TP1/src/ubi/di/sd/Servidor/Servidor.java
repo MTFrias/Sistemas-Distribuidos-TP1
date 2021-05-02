@@ -4,6 +4,7 @@ package ubi.di.sd.Servidor;
 import ubi.di.sd.Fornecedor.Interface_Fornecedor_Servidor;
 import ubi.di.sd.Model.*;
 import ubi.di.sd.Vendedor.Interface_Vendedor_Servidor;
+
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -16,7 +17,7 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
     private static ArrayList<String> fornecedores;
     private static ArrayList<Bebidas> bebidas;
     private static ArrayList<Carne> carnes;
-    private static ArrayList<Peixe> peixes;
+    public static ArrayList<Peixe> peixes;
     private static ArrayList<Mercearia> mercearias;
     private static ArrayList<Frutos> frutos;
     private static ArrayList<Limpeza> limpezas;
@@ -58,66 +59,54 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
 
     public Servidor() throws java.rmi.RemoteException {
         super();
-
         fornecedores = new ArrayList<>();
-
-
-        if(Ficheiros.CarregarBebidas() != null){
+        if (Ficheiros.CarregarBebidas() != null) {
 
             bebidas = Ficheiros.CarregarBebidas();
-        }else{
+        } else {
             bebidas = new ArrayList<>();
         }
 
-        if(Ficheiros.CarregarCarne() != null){
+        if (Ficheiros.CarregarCarne() != null) {
             carnes = Ficheiros.CarregarCarne();
-        }else{
+        } else {
             carnes = new ArrayList<>();
         }
 
-        if(Ficheiros.CarregarPeixe() != null){
+        if (Ficheiros.CarregarPeixe() != null) {
             peixes = Ficheiros.CarregarPeixe();
-        }else{
+        } else {
             peixes = new ArrayList<>();
         }
 
-        if(Ficheiros.CarregarMercearia() != null){
+        if (Ficheiros.CarregarMercearia() != null) {
             mercearias = Ficheiros.CarregarMercearia();
-        }else{
-            peixes = new ArrayList<>();
+        } else {
+            mercearias = new ArrayList<>();
         }
 
-        if(Ficheiros.CarregarLimpeza() != null){
+        if (Ficheiros.CarregarLimpeza() != null) {
             limpezas = Ficheiros.CarregarLimpeza();
         } else {
             limpezas = new ArrayList<>();
         }
 
-        if (Ficheiros.CarregarFrutos() != null){
+        if (Ficheiros.CarregarFrutos() != null) {
             frutos = Ficheiros.CarregarFrutos();
-        }else{
+        } else {
             frutos = new ArrayList<>();
         }
 
-        if(Ficheiros.CarregarHistoricoVendas() != null){
+        if (Ficheiros.CarregarHistoricoVendas() != null) {
             vendas = Ficheiros.CarregarHistoricoVendas();
-        }else {
+        } else {
             vendas = new ArrayList<>();
         }
 
 
         //Este Array não precisa de if porque em ultima instancia esta função retorna um array vazio no caso de não haver nada nos ficheiros
         obj = Ficheiros.CarregarTodosProdutos();
-
-
-
         mensagemFornecedors = new ArrayList<>();
-        peixes.add(new Peixe("sardinha", 20, 2, 3, LocalDateTime.now(), 10, "Fornecedor 1"));
-        peixes.add(new Peixe("sardinha1", 23, 4, 3, LocalDateTime.now(), 5, "Fornecedor 1"));
-        peixes.add(new Peixe("sardinha2", 20, 2, 3, LocalDateTime.now(), 6, "Fornecedor 1"));
-        obj.add(peixes.get(0));
-        obj.add(peixes.get(1));
-        obj.add(peixes.get(2));
     }
 
     //==================================================================================================================
@@ -126,6 +115,7 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
     public void printOnVendedor(String s) throws RemoteException {
         printOnServidor(s);
     }
+
     //==================================================================================================================
     //Função responsável por remover um produto dos stocks =============================================================
     @Override
@@ -138,6 +128,7 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
     public void printOnServidor(String mensagem) throws java.rmi.RemoteException {
         mensagemFornecedors.add(new MensagemFornecedor(mensagem, "Servidor 1"));
     }
+
     //==================================================================================================================
     //Função responsável por remover um produto dos stocks =============================================================
     public String removeProduto(Interface_Fornecedor_Servidor _fornecedor, int _idProduto) throws RemoteException {
@@ -195,17 +186,19 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
         }
         fornecedores.add(fornecedor.getNomeFornecedor());
     }
+
     //==================================================================================================================
     //Função responsável por registrar o produto no stock do servidor ==================================================
     public static void verificarMensagensServidor() throws java.rmi.RemoteException {
-        for (MensagemFornecedor m:mensagemFornecedors) {
-            if(m.getNomeForncedor().equals("Servidor 1")){
+        for (MensagemFornecedor m : mensagemFornecedors) {
+            if (m.getNomeForncedor().equals("Servidor 1")) {
                 System.out.println(m.getMensgem());
             }
         }
         System.out.println("Para continuar aperte alguma tecla!");
         String s = Validacao.readString();
     }
+
     //==================================================================================================================
     //Função responsável por registrar o produto no stock do servidor ==================================================
     public String adicionarProduto(String _nome, int _stock, double _precoCompra, double _precoVenda, LocalDateTime _validade, int _quantidadeMinima, Interface_Fornecedor_Servidor _fornecedor, String pos) throws RemoteException {
@@ -244,7 +237,7 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
     //==================================================================================================================
     //Função responsável por consultar as compras feitas pelo servidor =================================================
     public String consultarCompras(Interface_Fornecedor_Servidor _fornecedor, int _ordenar) throws RemoteException {
-        String s;
+        String s = "Stock vázio!";
         switch (_ordenar) {
             case 1:
                 obj.sort((o1, o2) -> Double.compare(o2.getPrecoCompra(), o1.getPrecoCompra()));
@@ -272,6 +265,7 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
         }
         return s;
     }
+
     //==================================================================================================================
     //Função responsável por consultar as vendas =======================================================================
     public String consultarVendas(Interface_Fornecedor_Servidor _fornecedor, int _ordenar) throws RemoteException {
@@ -312,6 +306,7 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
         }
         return s = s + "\nVendidos Totais: " + vendidosTotal + ", Prejuiso Total: " + prejuisoTotal + "€, Compras totais: " + compradosTotal + "€, Lucro: " + (vendidosTotal + prejuisoTotal) + "€" + ", Quantidade de Produtos Vencidos: " + vencidosTotal + ", Quantidade de Produtos Vendidos: " + quantidadeVendidadTotal;
     }
+
     //==================================================================================================================
     //Função responsável por mandar mensagens para um fornecedor =======================================================
     public void printOnFornecedor(String s, Interface_Fornecedor_Servidor _fornecedor) throws RemoteException {
@@ -400,37 +395,37 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
                 for (Peixe item : peixes) {
                     _vendedor.printOnServidor(item.printProduto());
                 }
-                _vendedor.printOnServidor(vendInput(_vendedor, 1,servidor));
+                _vendedor.printOnServidor(vendInput(_vendedor, 1, servidor));
                 break;
             case 2:
                 for (Carne item : carnes) {
                     _vendedor.printOnServidor(item.printProduto());
                 }
-                _vendedor.printOnServidor(vendInput(_vendedor, 2,servidor));
+                _vendedor.printOnServidor(vendInput(_vendedor, 2, servidor));
                 break;
             case 3:
                 for (Limpeza item : limpezas) {
                     _vendedor.printOnServidor(item.printProduto());
                 }
-                _vendedor.printOnServidor(vendInput(_vendedor, 3,servidor));
+                _vendedor.printOnServidor(vendInput(_vendedor, 3, servidor));
                 break;
             case 4:
                 for (Bebidas item : bebidas) {
                     _vendedor.printOnServidor(item.printProduto());
                 }
-                _vendedor.printOnServidor(vendInput(_vendedor, 4,servidor));
+                _vendedor.printOnServidor(vendInput(_vendedor, 4, servidor));
                 break;
             case 5:
                 for (Frutos item : frutos) {
                     _vendedor.printOnServidor(item.printProduto());
                 }
-                _vendedor.printOnServidor(vendInput(_vendedor, 5,servidor));
+                _vendedor.printOnServidor(vendInput(_vendedor, 5, servidor));
                 break;
             case 6:
                 for (Mercearia item : mercearias) {
                     _vendedor.printOnServidor(item.printProduto());
                 }
-                _vendedor.printOnServidor(vendInput(_vendedor, 6,servidor));
+                _vendedor.printOnServidor(vendInput(_vendedor, 6, servidor));
                 break;
             default:
                 break;
@@ -441,7 +436,7 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
 
     /*Metodo que auxilia o metodo de vendas =================================================================*/
     //As venda são feitas aqui, de acordo com o input que é pedido e dado pelo vendedor ======================
-    public static String vendInput(Interface_Vendedor_Servidor vend, int opcao,Interface_Servidor_Vendedor servidor) throws RemoteException {
+    public static String vendInput(Interface_Vendedor_Servidor vend, int opcao, Interface_Servidor_Vendedor servidor) throws RemoteException {
         int qtd = 0;
         int id = 0;
         int flag = 0;
@@ -454,7 +449,7 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
         switch (opcao) {
             case 1:
                 for (Peixe item : peixes) {
-                    if ((item.getID() == id) && (item.getStock() >= qtd)){  /*Verificamos o ID do produto e o stock; Coisas essas que determinam se a venda é feita ou não*/
+                    if ((item.getID() == id) && (item.getStock() >= qtd)) {  /*Verificamos o ID do produto e o stock; Coisas essas que determinam se a venda é feita ou não*/
                         flag = 1;
 
                         Peixe pe = (Peixe) item.Clone();
@@ -462,7 +457,7 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
                         pe.setStock(qtd);
                         item.setStock(v);
                         vendas.add(pe);                                     /*Adicionamos ao array que contém todas as vendas feitas*/
-                        VerificacaoValidadeStock(servidor,pe);              /*Verificação do stock mínimo após a venda feita*/
+                        VerificacaoValidadeStock(servidor, pe);              /*Verificação do stock mínimo após a venda feita*/
                         return qtd + " " + item.getNome() + " vendido com sucesso!";
                     }
                 }
@@ -476,7 +471,7 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
                         ca.setStock(qtd);
                         item.setStock(v);
                         vendas.add(ca);
-                        VerificacaoValidadeStock(servidor,ca);
+                        VerificacaoValidadeStock(servidor, ca);
                         return qtd + " " + item.getNome() + " Vendido com sucesso!";
                     }
                 }
@@ -557,11 +552,21 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
             }
         }
     }
+
+    @Override
+    public boolean consultarStocks() throws RemoteException {
+        if (obj.size() > 0) {
+            return true;
+        }
+        return false;
+    }
+
     //==================================================================================================================
     //Função responsável para alguem registrado no servidor ============================================================
     public void AnotarMensagen(String mensagem, String fornecedor) throws java.rmi.RemoteException {
         mensagemFornecedors.add(new MensagemFornecedor(mensagem, fornecedor));
     }
+
     //==================================================================================================================
     //Função responsável por verificar se os produtos perderam a validade ==============================================
     public String verificarDataValidade(Interface_Vendedor_Servidor _vendedor, Interface_Servidor_Vendedor servidor) throws java.rmi.RemoteException {
@@ -575,6 +580,7 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
         }
         return s;
     }
+
     //==================================================================================================================
     //Função responsável por verificar se o produto alcançou a quantidade minima de stock ==============================
     public static void VerificacaoValidadeStock(Interface_Servidor_Vendedor servidor, Produto produto) throws RemoteException {
@@ -590,6 +596,7 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
             }
         }
     }
+
     //==================================================================================================================
     //Função responsável por verificar se o produto pedeu a validade ===================================================
     public static void VerificacaoValidade(Interface_Servidor_Vendedor servidor, Produto produto) throws RemoteException {
@@ -622,9 +629,16 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
         } else if (produto.getClass().getSimpleName().equals((Limpeza.class).getSimpleName())) {
             limpezas.remove(produto);
         }
-        obj.remove(produto);
-        System.out.println(produto.getNome() + " removido!");
+
+        for (Produto item:obj) {
+            if(item.getID() == produto.getID()){
+                obj.remove(item);
+                System.out.println(produto.getNome() + " removido!");
+                return;
+            }
+        }
     }
+
     //==================================================================================================================
     //Função responsável por adicionar um produto em um arraylist ======================================================
     public static void adicionarProdutoStocks(Produto produto) throws RemoteException {
@@ -644,6 +658,7 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
         obj.add(produto);
         System.out.println(produto.getNome() + " adicionado!");
     }
+
     //==================================================================================================================
     //Função main do Servidor ==========================================================================================
     public static void main(String[] args) {
