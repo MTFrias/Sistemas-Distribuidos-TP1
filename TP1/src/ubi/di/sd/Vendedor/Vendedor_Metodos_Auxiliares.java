@@ -11,12 +11,8 @@ import java.time.LocalDateTime;
 
 public class Vendedor_Metodos_Auxiliares {
 
-
-    public static void consultarProdutosEmStock(Interface_Servidor_Vendedor servidor, Interface_Vendedor_Servidor vendedor, int _opcao) throws RemoteException {
-        //System.out.println("FLAG222");
-        System.out.println(servidor.consultarProduto(vendedor, _opcao));
-    }
-
+    //Método responsável pelo Menu com as opções de consulta e interação com o servidor
+    //Aqui fazemos a chamada de um método que se encontra no servidor, que nos permite consultar os produtos desejados.
     public static void consultarProdutoServidor(Interface_Servidor_Vendedor servidor, Interface_Vendedor_Servidor vendedor) throws RemoteException {
         String s;
         while (true) {
@@ -36,26 +32,25 @@ public class Vendedor_Metodos_Auxiliares {
             if(s == null) s = "sair";
             switch (s) {
                 case "1":
-                    //System.out.println("BINGO 222222222");
-                    consultarProdutosEmStock(servidor, vendedor, 1);
+                    System.out.println(servidor.consultarProduto(vendedor, 1));
                     break;
                 case "2":
-                    consultarProdutosEmStock(servidor, vendedor, 2);
+                    System.out.println(servidor.consultarProduto(vendedor, 2));
                     break;
                 case "3":
-                    consultarProdutosEmStock(servidor, vendedor, 3);
+                    System.out.println(servidor.consultarProduto(vendedor, 3));
                     break;
                 case "4":
-                    consultarProdutosEmStock(servidor, vendedor, 4);
+                    System.out.println(servidor.consultarProduto(vendedor, 4));
                     break;
                 case "5":
-                    consultarProdutosEmStock(servidor, vendedor, 5);
+                    System.out.println(servidor.consultarProduto(vendedor, 5));
                     break;
                 case "6":
-                    consultarProdutosEmStock(servidor, vendedor, 6);
+                    System.out.println(servidor.consultarProduto(vendedor, 6));
                     break;
                 case "7":
-                    consultarProdutosEmStock(servidor, vendedor, 7);
+                    System.out.println(servidor.consultarProduto(vendedor, 7));
                     break;
                 case "Sair":
                     return;
@@ -64,6 +59,9 @@ public class Vendedor_Metodos_Auxiliares {
             s = Validacao.readString();
         }
     }
+
+    //====== Método responsável pelo Menu com as opções de venda e interação com o servidor =========================================
+    //====== Aqui fazemos a chamada de um método que se encontra no servidor, que nos permite vender os produtos desejados ==========
 
     public static void venderProdutoServidor(Interface_Servidor_Vendedor servidor, Interface_Vendedor_Servidor vendedor) throws RemoteException {
         String s;
@@ -101,13 +99,54 @@ public class Vendedor_Metodos_Auxiliares {
                 case "6":
                     System.out.println(servidor.venderProduto(vendedor, 6,servidor));
                     break;
-                case "Sair":
+                case "sair":
+                    return;
+            }
+        }
+    }
+
+
+    //======= Método responsável pela Menu com as opções de listagem e a interação com o servidor ===================================================
+    //======= Aqui fazemos a chamada de um método que se encontra no servidor, que nos permite consultar os produtos desejados=======================
+
+    public static void consultarHistoricoVendidos(Interface_Servidor_Vendedor servidor, Interface_Vendedor_Servidor vendedor) throws RemoteException {
+        while (true) {
+            System.out.println("======================================================");
+            System.out.println("====== Lista de Produtos Comprados ===================");
+            System.out.println("====== (1) Listar por Decrescente (Preço de compra) ==");
+            System.out.println("====== (2) Listar por Crescente (Preço de compra) ====");
+            System.out.println("====== (3) Listar por Alfabetica (Nome) ==============");
+            System.out.println("====== (4) Listar por Alfabetica (Invertido) =========");
+            System.out.println("====== (5) Listar Todos os Produtos Vendidos ========");
+            System.out.println("====== (sair) - Finalizar ============================");
+            System.out.println("======================================================");
+            System.out.print("Opção:");
+            String s = Validacao.readString();
+            if (s == null) s = "sair";
+            switch (s) {
+                case "1":
+                    System.out.println(servidor.vendedorConsultarVendas(vendedor, 1));
+                    break;
+                case "2":
+                    System.out.println(servidor.vendedorConsultarVendas(vendedor, 2));
+                    break;
+                case "3":
+                    System.out.println(servidor.vendedorConsultarVendas(vendedor, 3));
+                    break;
+                case "4":
+                    System.out.println(servidor.vendedorConsultarVendas(vendedor, 4));
+                    break;
+                case "5":
+                    System.out.println(servidor.vendedorConsultarVendas(vendedor, 5));
+                    break;
+                case "sair":
                     return;
             }
             System.out.println("Para continuar aperte alguma tecla!");
             s = Validacao.readString();
         }
     }
+
 
     public static void verificarDataValidadeProdutos(Interface_Servidor_Vendedor servidor, Vendedor vendedor) throws RemoteException {
         System.out.println(servidor.verificarDataValidade(vendedor,servidor));

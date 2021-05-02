@@ -8,10 +8,11 @@ import java.rmi.RemoteException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Objects;
-
+//======================================================================================================================
+//Classe auxiliar para as consultas os metodos do servidor =============================================================
 public class Fornecedor_Metodos_Auxiliares {
-
+    //==================================================================================================================
+    //Função responsável por pegar o input do nome do produto ==========================================================
     public static String escreverNome() {
         System.out.println("============================================");
         System.out.print("Nome do produto:");
@@ -21,7 +22,8 @@ public class Fornecedor_Metodos_Auxiliares {
         }
         return s;
     }
-
+    //==================================================================================================================
+    //Função responsável por pegar o input da quantidade de stock de um produto ========================================
     public static int escreverStock() {
         int s;
         do {
@@ -31,7 +33,8 @@ public class Fornecedor_Metodos_Auxiliares {
         } while (s < 0);
         return s;
     }
-
+    //==================================================================================================================
+    //Função responsável por pegar o input do ID do produto ============================================================
     public static int escreverId() {
         int s;
         do {
@@ -41,7 +44,8 @@ public class Fornecedor_Metodos_Auxiliares {
         } while (s < 0);
         return s;
     }
-
+    //==================================================================================================================
+    //Função responsável por pegar o input do preço de compra de um produto ============================================
     public static double escreverPrecoCompra() {
         double s;
         do {
@@ -51,7 +55,8 @@ public class Fornecedor_Metodos_Auxiliares {
         } while (s < 0);
         return s;
     }
-
+    //==================================================================================================================
+    //Função responsável por pegar o input do preço de venda de um produto =============================================
     public static double escreverPrecoVenda() {
         double s;
         do {
@@ -61,7 +66,8 @@ public class Fornecedor_Metodos_Auxiliares {
         } while (s < 0);
         return s;
     }
-
+    //==================================================================================================================
+    //Função responsável por pegar o input de quanto meses de validade de um produto ===================================
     public static LocalDateTime escreverValidade() {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDateTime now = LocalDateTime.now();
@@ -73,7 +79,8 @@ public class Fornecedor_Metodos_Auxiliares {
         } while (s < 0);
         return LocalDateTime.now().plusMonths(s);
     }
-
+    //==================================================================================================================
+    //Função responsável por pegar o input da quantidade minima no stock de um produto =================================
     public static int escreverQuantidadeMinima() {
         int s;
         do {
@@ -82,8 +89,8 @@ public class Fornecedor_Metodos_Auxiliares {
         } while (s < 0);
         return s;
     }
-
-
+    //==================================================================================================================
+    //Função responsável por adicionar um produto de uma categoria de produto  =========================================
     public static void adicionarProdutoServidor(Interface_Servidor_Fornecedor servidor, Interface_Fornecedor_Servidor fornecedor) throws RemoteException {
         String s, nome;
         double pc, pv;
@@ -117,8 +124,8 @@ public class Fornecedor_Metodos_Auxiliares {
             s = Validacao.readString();
         }
     }
-
-
+    //==================================================================================================================
+    //Função responsável por consultar o historico de compras dos produto ==============================================
     public static void consultarHistoricoCompras(Interface_Servidor_Fornecedor servidor, Interface_Fornecedor_Servidor fornecedor) throws RemoteException {
         while (true) {
             System.out.println("======================================================");
@@ -156,16 +163,17 @@ public class Fornecedor_Metodos_Auxiliares {
             s = Validacao.readString();
         }
     }
-
+    //==================================================================================================================
+    //Função responsável por consultar o historico de vendas dos produto ===============================================
     public static void consultarHistoricoVendidos(Interface_Servidor_Fornecedor servidor, Interface_Fornecedor_Servidor fornecedor) throws RemoteException {
         while (true) {
             System.out.println("======================================================");
-            System.out.println("====== Lista de Produtos Comprados ===================");
-            System.out.println("====== (1) Listar por Decrescente (Preço de compra) ==");
-            System.out.println("====== (2) Listar por Crescente (Preço de compra) ====");
+            System.out.println("====== Lista de Produtos Vendidos ====================");
+            System.out.println("====== (1) Listar por Menos vendidos =================");
+            System.out.println("====== (2) Listar por Mais Vendidos ==================");
             System.out.println("====== (3) Listar por Alfabetica (Nome) ==============");
             System.out.println("====== (4) Listar por Alfabetica (Invertido) =========");
-            System.out.println("====== (5) Listar Todos os Produtos Comprados ========");
+            System.out.println("====== (5) Listar por ID =============================");
             System.out.println("====== (sair) - Finalizar ============================");
             System.out.println("======================================================");
             System.out.print("Opção:");
@@ -194,7 +202,8 @@ public class Fornecedor_Metodos_Auxiliares {
             s = Validacao.readString();
         }
     }
-
+    //==================================================================================================================
+    //Função responsável por remover um produto do stock ===============================================================
     public static void removeProduto(Interface_Servidor_Fornecedor servidor, Interface_Fornecedor_Servidor fornecedor) throws RemoteException {
         while (true) {
             System.out.println("======================================================");
@@ -216,10 +225,16 @@ public class Fornecedor_Metodos_Auxiliares {
             s = Validacao.readString();
         }
     }
-
-    public static void LerMensagens(ArrayList<String> mensagens) {
-        for (String item : mensagens) {
-            System.out.println(item);
+    //==================================================================================================================
+    //Função responsável por consultar as mensagens que o fornecedor recebeu ===========================================
+    public static void LerMensagens(Interface_Servidor_Fornecedor servidor, ArrayList<String> mensagens, Fornecedor fornecedor) throws RemoteException {
+        servidor.ConsultarMensagens(fornecedor);
+        if (mensagens.size() != 0) {
+            for (String item : mensagens) {
+                System.out.println(item);
+            }
+        } else {
+            System.out.println("Nenhuma mensagem direcionada ao " + fornecedor.getNomeFornecedor() + "!");
         }
     }
 }
