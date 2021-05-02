@@ -12,30 +12,7 @@ import java.util.Vector;
 public  class Ficheiros {
 
 
-  /*  public static void InserirNovoPeixe(){
 
-        //Verificar se esta função está a funcionar
-        //Recebe a informação do ficheiro!
-        Vector<Peixe> vectorPeixes = lerInformacao();
-
-        System.out.println("Quantos produtos novos quer inserir?");
-        int quantidade= Ler.umInt();
-
-        for (int i = 0; i<quantidade; i++) {
-            System.out.println("Introduza o Nome: ");
-            String nome = Ler.umaString();
-
-            System.out.println("Introduza o preco: ");
-            double preco = Ler.umDouble();
-
-            System.out.println("Introduza o stock: ");
-            int stock = Ler.umInt();
-
-            Peixe novoPeixe = new Peixe(nome, stock, preco);
-            vectorPeixes.add(novoPeixe);
-        }
-    }
-*/
 
 
     public static void GuardaInformacao(Object obj) {
@@ -100,6 +77,102 @@ public  class Ficheiros {
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
+        }
+
+    }
+
+
+
+    public static ArrayList<Produto> CarregarTodosProdutos(){
+
+        ArrayList<Produto> obj = new ArrayList<>();
+
+        //Carregar Peixe
+        if(CarregarPeixe() != null){
+            ArrayList<Peixe> px = CarregarPeixe();
+            for (Peixe item : px) {
+                obj.add(item);
+            }
+        }
+
+        //Carregar Carne
+        if(CarregarCarne() != null){
+            ArrayList<Carne> px = CarregarCarne();
+            for (Carne item : px) {
+                obj.add(item);
+            }
+        }
+
+        //Carregar Bebidas
+        if(CarregarBebidas() != null){
+            ArrayList<Bebidas> px = CarregarBebidas();
+            for (Bebidas item : px) {
+                obj.add(item);
+            }
+        }
+
+        //Carregar Fruta
+        if(CarregarFrutos() != null){
+            ArrayList<Frutos> px = CarregarFrutos();
+            for (Frutos item : px) {
+                obj.add(item);
+            }
+        }
+
+
+        //Carregar Limpeza
+        if(CarregarLimpeza() != null){
+            ArrayList<Limpeza> px = CarregarLimpeza();
+            for (Limpeza item : px) {
+                obj.add(item);
+            }
+        }
+
+        //Carregar Mercearia
+        if(CarregarMercearia() != null){
+            ArrayList<Mercearia> px = CarregarMercearia();
+            for (Mercearia item : px) {
+                obj.add(item);
+            }
+        }
+
+        return obj;
+    }
+
+    //Guardar num ficheiro o historico de vendas do tipo Produto
+    public static void GuardarHistoricoVendas(ArrayList<Produto> lst){
+
+        try {
+            File file = new File("fvendas.dat");
+            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(file));
+            os.writeObject(lst);
+            os.flush();
+            os.close();
+
+            System.out.println("Ficheiro para historico de vendas guardado com sucesso!!");
+        } catch (Exception e){
+
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+    //Carrega o Historico de Vendas a aprtir do ficheiro
+    public static ArrayList<Produto> CarregarHistoricoVendas() {
+        ArrayList<Produto> vProduto;
+
+        try {
+            System.out.println("A ler informação do ficheiro hostorico de vendas...");
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("fvendas.dat"));
+
+            vProduto = (ArrayList<Produto>) ois.readObject();
+            ois.close();
+            return vProduto;
+
+        } catch (Exception e) {
+
+            e.getStackTrace();
+            return null;
         }
 
     }
