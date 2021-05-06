@@ -678,6 +678,7 @@ public class Servidor extends java.rmi.server.UnicastRemoteObject implements Int
         //System.setProperty("java.security.policy", "/Users/Lenovo/IdeaProjects/Sistemas-Distribuidos-TP1/TP1/grant.policy");
         System.setSecurityManager(new SecurityManager());
         try {
+            System.setProperty("java.rmi.server.hostname", "192.168.1.67"); //resgistar o ip do servidor
             LocateRegistry.createRegistry(1099);
             Servidor h = new Servidor();
             Naming.rebind("Servidor", h);

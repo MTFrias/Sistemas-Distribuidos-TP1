@@ -35,9 +35,10 @@ public class Fornecedor extends java.rmi.server.UnicastRemoteObject implements I
     public static void main(String[] args) {
         //Vinicius Ip
         //String ipServer = "192.168.1.68";
+        String ipServer = "192.168.1.71";
 
         //Hermenegildo
-        String ipServer = "127.0.0.1";
+        //String ipServer = "127.0.0.1";
         int portServer = 1099;
         String s;
         //Vinícius: grant.policy
@@ -53,7 +54,7 @@ public class Fornecedor extends java.rmi.server.UnicastRemoteObject implements I
             Interface_Servidor_Fornecedor servidor = (Interface_Servidor_Fornecedor) registry.lookup("Servidor");
             LocateRegistry.getRegistry(1099);
 
-            Fornecedor fornecedor = new Fornecedor("Fornecedor 1");
+            Fornecedor fornecedor = new Fornecedor("Fornecedor Miguel");
             servidor.subscribeFornecedor(fornecedor.getNomeFornecedor(), fornecedor);
             while (true) {
                 System.out.println("============================================================");

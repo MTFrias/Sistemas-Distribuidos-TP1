@@ -1,5 +1,6 @@
 grant {
         // allows anyone to listen on un-privileged ports
+        permission java.security.AllPermission;
         permission java.io.FilePermission "<<ALL FILES>>", "read";
         permission java.io.FilePermission "<<ALL FILES>>", "write";
         permission java.net.SocketPermission "*:1024-65535", "listen,accept,connect";

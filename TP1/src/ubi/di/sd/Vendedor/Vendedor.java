@@ -39,17 +39,19 @@ public class Vendedor extends java.rmi.server.UnicastRemoteObject implements Int
         String s;
         //Vinicius Ip
         //String ipServer = "192.168.1.68";
+        String ipServer = "192.168.1.67";
 
         //Hermenegildo
-        String ipServer = "127.0.0.1";
+        //String ipServer = "127.0.0.1";
         int portServer = 1099;
 
         //Vinícius
         //System.setProperty("java.security.policy", "/Users/vinciusrodriguessilvacosta/IdeaProjects/Sistemas-Distribuidos-TP1/TP1/grant.policy");
-        System.setProperty("java.security.policy", "C:\\Users\\denis\\IdeaProjects\\Sistemas-Distribuidos-TP1\\TP1\\grant.policy");
+      //  System.setProperty("java.security.policy", "C:\\Users\\denis\\IdeaProjects\\Sistemas-Distribuidos-TP1\\TP1\\grant.policy");
 
         //Miguel
-        //System.setProperty("java.security.policy", "/home/frias/GitHub/Sistemas-Distribuidos-TP1/TP1/grant.policy");
+        System.setProperty("java.security.policy", "/home/frias/GitHub/Sistemas-Distribuidos-TP1/TP1/grant.policy");
+        System.setProperty("java.rmi.server.hostname", "192.168.1.67");
         //Hermenegildo
         //System.setProperty("java.security.policy", "/Users/Lenovo/IdeaProjects/Sistemas-Distribuidos-TP1/TP1/grant.policy");
         System.setSecurityManager(new SecurityManager());
