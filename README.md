@@ -13,7 +13,6 @@ A entrada de um produto deve ser registada como uma compra;
 A saída de um produto deve ser registada como uma venda;
 Para cada compra e para cada venda deve ficar registada a respectiva data. 
 
-
 Deverá ser possível realizar as seguintes operações:
 1– Registar um produto;
 2 – Adicionar uma certa quantidade de um produto já existente;
