@@ -1,6 +1,5 @@
-Sistemas-Distribuidos-TP1
-
 # TP1 - Threads e Objetos Distribuídos.
+
 
 ## Enunciado
 
@@ -20,22 +19,18 @@ Deverá ser possível realizar as seguintes operações:
 é retirada a quantidade correspondente do stock);
 4 – Eliminar um produto (caso deixe de existir no negócio);
 5 – Consultar produtos existentes. Prever vários tipos de consultas;
-6 – Consultar as vendas (listar todas/ consultar por ordem de valor/produto mais vendido/ 
-...
+6 – Consultar as vendas (listar todas/ consultar por ordem de valor/produto mais vendido
 7 – Consultar as compras feitas a um fornecedor (listar todas/ consultar por ordem de 
-valor/ ….
+valor
 Pretende-se uma aplicação cliente/servidor em java RMI, em que no processo servidor 
-um ou vários objetos remotos disponibilizam as operações descritas acima. Devem existir 
-dois tipos de processos cliente: 
+um ou vários objetos remotos disponibilizam as operações descritas acima. Devem existir dois tipos de processos cliente: 
 - O processo Fornecedor e o processo Vendedor. O processo Fornecedor permitirá 
-realizar as operações de registo, entrada e eliminação de produtos, deve também permitir 
-consultar as operações de compras (do ponto de vista da empresa).
+realizar as operações de registo, entrada e eliminação de produtos, deve também permitir consultar as operações de compras (do ponto de vista da empresa).
 - O processo Vendedor tem acesso às operações de saída de produtos, consulta de 
 produtos e vendas.
 
 É suposto que os processos cliente sejam executados dentro da organização pelos seus 
-funcionários. Os que tratam das compras aos fornecedores acederão aos processos do tipo 
-Fornecedor; os que tratam das vendas, acederão aos processos do tipo Vendedor
+funcionários. Os que tratam das compras aos fornecedores acederão aos processos do tipo Fornecedor; os que tratam das vendas, acederão aos processos do tipo Vendedor
 Sempre que é realizada uma venda, é verificado se a quantidade existente do produto 
 vendido permanece maior ou igual ao valor de seu stock mínimo. Caso fique inferior, o 
 processo Fornecedor deverá receber um callback, com um aviso para repor o stock do 
